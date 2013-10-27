@@ -1,0 +1,134 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/TableLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:shrinkColumns="1" >
+
+    <TableRow android:id="@+id/billAmountRow" >
+
+        <TextView
+            android:id="@+id/billAmountTextView"
+            android:text="@string/bill_amount_text_view" />
+
+        <EditText
+            android:id="@+id/billAmountEditText"
+            android:ems="5"
+            android:inputType="numberDecimal"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+                        <requestFocus />
+        </EditText>
+                        
+
+    </TableRow>
+
+    <TableRow android:id="@+id/tipPercentRow" >
+
+        <TextView
+            android:id="@+id/tipPercentTextView"
+            android:text="@string/tip_percent_text_view" />
+
+        <EditText
+            android:id="@+id/tipPercenttEditText"
+            android:ems="5"
+            android:hint="@string/tip_percent_hint_text"
+            android:inputType="number" >
+
+        </EditText>
+
+        <Button
+            android:id="@+id/thumbs_up_btn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_column="2"
+            android:layout_gravity="left"
+            android:background="@drawable/thumbs_up_btn" />
+
+        <Button
+            android:id="@+id/thumbs_down_btn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_column="3"
+            android:layout_gravity="left"
+            android:background="@drawable/thumbs_down_btn" />
+
+        
+    </TableRow>
+
+    <TableRow android:id="@+id/tipAmountRow" >
+
+        <TextView
+            android:id="@+id/tipAmountTextView"
+            android:text="@string/tip_amount_text_view" />
+
+        <EditText
+            android:id="@+id/tipAmountEditText"
+            android:ems="5"
+            android:inputType="numberDecimal" >
+        </EditText>
+        
+    </TableRow>
+
+    <TableRow android:id="@+id/totalAmountRow" >
+
+        <TextView 
+            android:id="@+id/totalAmountTextView"
+            android:text="@string/total_amount_text_view" />
+
+        <TextView
+            android:id="@+id/totalAmountValueTextView"
+            android:background="@drawable/rectangle_border"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </TableRow>
+
+    <TableRow android:id="@+id/numPeopleRow" >
+
+        <TextView
+            android:id="@+id/numPeopleTextView"
+            android:text="@string/group_number_text_view" />
+
+        <EditText
+            android:id="@+id/numPeopleEditText"
+            android:ems="5"
+            android:inputType="number" >
+
+
+        </EditText>
+    </TableRow>
+
+    <TableRow android:id="@+id/perPersonAmountRow" >
+
+        <TextView
+            android:id="@+id/perPersonAmountTextView"
+            android:text="@string/group_pays_text_view" />
+
+        <TextView
+            android:id="@+id/perPersonAmountValueTextView"
+            android:background="@drawable/rectangle_border"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/messageRow"
+        android:layout_marginTop="@dimen/judgement_message_top_padding"
+        android:background="@color/android_lt_blue" >
+
+        <TextView
+            android:id="@+id/judgementTextView"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_span="4"
+            android:text="@string/judgement_init_text_view"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="17dp"
+            android:typeface="serif" />
+
+    </TableRow>
+
+     <TableRow
+        android:id="@+id/tipButtonRow"
+        android:paddingTop="@dimen/activity_horizontal_margin" >
+
+    </TableRow>    
+    
+    
+    
+</TableLayout>
