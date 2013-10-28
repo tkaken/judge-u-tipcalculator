@@ -83,19 +83,24 @@ public class TipCalcState
 		this.tipAmount = this.billAmount * this.tipPercent;
 		
         
-		calculateTotalAmount();
-		
-		this.groupPaysAmount = this.totalAmount/this.numOfGroups;
-
-		
+		calculateTotalAmount();		
+		calculateGroupPaysAmount();	
 	}
 
 	public void setTipAmount(double inValue)
 	{
 		this.tipAmount = inValue;
 		
+		calculateTipPercent();
+		
+		calculateTotalAmount();
+		calculateGroupPaysAmount();
+	}
+
+	private void calculateTipPercent()
+	{
 		if (BigDecimal.valueOf(this.billAmount).compareTo(BigDecimal.ZERO) == 0 ||
-				BigDecimal.valueOf(inValue).compareTo(BigDecimal.ZERO) <= 0	)
+				BigDecimal.valueOf(tipAmount).compareTo(BigDecimal.ZERO) <= 0	)
 		{
 			this.tipAmount = 0.0;
 			this.tipPercent = 0.0;
@@ -104,9 +109,6 @@ public class TipCalcState
 		{
 		   this.tipPercent = this.tipAmount / this.billAmount;
 		}
-		
-		calculateTotalAmount();
-		this.groupPaysAmount = this.totalAmount;
 	}
 
 	private void calculateTotalAmount()
@@ -151,5 +153,28 @@ public class TipCalcState
 		int tipAsInt =  CalcMath.roundDown(getTipPercentAsInt(), TIP_BUMP_AMOUNT);
 		setTipPercent( tipAsInt * .01);	
 	}
+
+	public void setTotalAmount(double inTotalAmount)
+	{
+		if (BigDecimal.valueOf(inTotalAmount).compareTo(BigDecimal.valueOf(billAmount)) < 0) 
+		{
+			totalAmount = billAmount;
+		}
+		else
+		{
+			totalAmount = inTotalAmount;
+			
+		}
+		
+		calculateTipAmount();
+		calculateTipPercent();
+		calculateGroupPaysAmount();
+	}
+
+	private void calculateTipAmount()
+	{
+		tipAmount = totalAmount - billAmount;
+	}
+
 
 }

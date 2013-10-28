@@ -13,13 +13,17 @@ public class TipCalcTests
 {
 	private TipCalcState tipCalcStartsAllClear;
 	private TipCalcState tipCalcStartsBill20Groups2;
-	private static final double DOUBLE_DELTA = 0.001;
+	private TipCalcState tipCalcStartsGroups2;
+	private static final double DOUBLE_DELTA = 0.01;
 
     @Before
 	public void setUp() throws Exception
 	{
 		this.tipCalcStartsAllClear = new TipCalcState();
 		
+		this.tipCalcStartsGroups2 = new TipCalcState();
+		this.tipCalcStartsGroups2.setNumOfGroups(2);
+
 		this.tipCalcStartsBill20Groups2 = new TipCalcState();
 		this.tipCalcStartsBill20Groups2.setBillAmount(20);
 		this.tipCalcStartsBill20Groups2.setNumOfGroups(2);
@@ -49,15 +53,15 @@ public class TipCalcTests
 	{
 		double expectedBillAmount = 10.0;
 		double expectedTotal = 11.5;
-		this.tipCalcStartsAllClear.setBillAmount(expectedBillAmount);
+		this.tipCalcStartsGroups2.setBillAmount(expectedBillAmount);
 		
 		//check postconditions
-		assertEquals(expectedBillAmount, this.tipCalcStartsAllClear.getBillAmount(), DOUBLE_DELTA);
-		assertEquals(0.15, this.tipCalcStartsAllClear.getTipPercent(),DOUBLE_DELTA);
-		assertEquals(1.5, this.tipCalcStartsAllClear.getTipAmount(),DOUBLE_DELTA);
-		assertEquals(expectedTotal, this.tipCalcStartsAllClear.getTotalAmount(),DOUBLE_DELTA);
-		assertEquals(1, this.tipCalcStartsAllClear.getNumOfGroups());
-		assertEquals(expectedTotal, this.tipCalcStartsAllClear.getGroupPaysAmount(),DOUBLE_DELTA);
+		assertEquals(expectedBillAmount, this.tipCalcStartsGroups2.getBillAmount(), DOUBLE_DELTA);
+		assertEquals(0.15, this.tipCalcStartsGroups2.getTipPercent(),DOUBLE_DELTA);
+		assertEquals(1.5, this.tipCalcStartsGroups2.getTipAmount(),DOUBLE_DELTA);
+		assertEquals(expectedTotal, this.tipCalcStartsGroups2.getTotalAmount(),DOUBLE_DELTA);
+		assertEquals(2, this.tipCalcStartsGroups2.getNumOfGroups());
+		assertEquals(expectedTotal/2, this.tipCalcStartsGroups2.getGroupPaysAmount(),DOUBLE_DELTA);
 	}
 	
 	@Test
@@ -113,28 +117,6 @@ public class TipCalcTests
 	
 
 	@Test
-	public void setNonZeroTipPercentWhenNonZeroTotalBill()
-	{
-		//set preconditions
-		double expectedPercentTipAmount = .10;
-		double expectedBillAmount = 20.5;
-		double expectedTotalBill = 22.55;
-		this.tipCalcStartsAllClear.setBillAmount(expectedBillAmount);
-
-		//act
-		this.tipCalcStartsAllClear.setTipPercent(expectedPercentTipAmount);
-		
-		//check postconditions
-		assertEquals(expectedBillAmount, this.tipCalcStartsAllClear.getBillAmount(),DOUBLE_DELTA);
-		assertEquals(expectedPercentTipAmount, this.tipCalcStartsAllClear.getTipPercent(),DOUBLE_DELTA);
-		assertEquals(2.05, this.tipCalcStartsAllClear.getTipAmount(), DOUBLE_DELTA);
-		assertEquals(expectedTotalBill, this.tipCalcStartsAllClear.getTotalAmount(),DOUBLE_DELTA);
-		assertEquals(1, this.tipCalcStartsAllClear.getNumOfGroups());
-		assertEquals(expectedTotalBill, this.tipCalcStartsAllClear.getGroupPaysAmount(),DOUBLE_DELTA);
-	}
-	
-	
-	@Test
 	public void setNonZeroBillWhenNonZeroTipAmountNonZeroBillNonZeroTipPercentAndTwoGroups()
 	{
 		//set preconditions
@@ -183,7 +165,28 @@ public class TipCalcTests
 		assertEquals(expectedTotalBill/numOfGroups, this.tipCalcStartsAllClear.getGroupPaysAmount(),DOUBLE_DELTA);
 	}
 	
+	@Test
+	public void setNonZeroTipPercentWhenNonZeroTotalBill()
+	{
+		//set preconditions
+		double expectedPercentTipAmount = .10;
+		double expectedBillAmount = 20.5;
+		double expectedTotalBill = 22.55;
+		this.tipCalcStartsGroups2.setBillAmount(expectedBillAmount);
+
+		//act
+		this.tipCalcStartsGroups2.setTipPercent(expectedPercentTipAmount);
+		
+		//check postconditions
+		assertEquals(expectedBillAmount, this.tipCalcStartsGroups2.getBillAmount(),DOUBLE_DELTA);
+		assertEquals(expectedPercentTipAmount, this.tipCalcStartsGroups2.getTipPercent(),DOUBLE_DELTA);
+		assertEquals(2.05, this.tipCalcStartsGroups2.getTipAmount(), DOUBLE_DELTA);
+		assertEquals(expectedTotalBill, this.tipCalcStartsGroups2.getTotalAmount(),DOUBLE_DELTA);
+		assertEquals(2, this.tipCalcStartsGroups2.getNumOfGroups());
+		assertEquals(expectedTotalBill/2, this.tipCalcStartsGroups2.getGroupPaysAmount(),DOUBLE_DELTA);
+	}
 	
+		
 	@Test
 	public void setNonZeroTipPercentWhenZeroBillAmount()
 	{
@@ -439,18 +442,18 @@ public class TipCalcTests
 		double expectedTipPercent = 0.10;
 		double expectedBillAmount = 20.0;
 		double expectedTotalBill = 22.0;
-		this.tipCalcStartsAllClear.setBillAmount(expectedBillAmount);
+		this.tipCalcStartsGroups2.setBillAmount(expectedBillAmount);
 
 		//act
-		this.tipCalcStartsAllClear.setTipAmount(expectedTipAmount);
+		this.tipCalcStartsGroups2.setTipAmount(expectedTipAmount);
 		
 		//check postconditions
-		assertEquals(expectedBillAmount, this.tipCalcStartsAllClear.getBillAmount(),DOUBLE_DELTA);
-		assertEquals(expectedTipPercent, this.tipCalcStartsAllClear.getTipPercent(),DOUBLE_DELTA);
-		assertEquals(expectedTipAmount, this.tipCalcStartsAllClear.getTipAmount(), DOUBLE_DELTA);
-		assertEquals(expectedTotalBill, this.tipCalcStartsAllClear.getTotalAmount(),DOUBLE_DELTA);
-		assertEquals(1, this.tipCalcStartsAllClear.getNumOfGroups());
-		assertEquals(expectedTotalBill, this.tipCalcStartsAllClear.getGroupPaysAmount(),DOUBLE_DELTA);
+		assertEquals(expectedBillAmount, this.tipCalcStartsGroups2.getBillAmount(),DOUBLE_DELTA);
+		assertEquals(expectedTipPercent, this.tipCalcStartsGroups2.getTipPercent(),DOUBLE_DELTA);
+		assertEquals(expectedTipAmount, this.tipCalcStartsGroups2.getTipAmount(), DOUBLE_DELTA);
+		assertEquals(expectedTotalBill, this.tipCalcStartsGroups2.getTotalAmount(),DOUBLE_DELTA);
+		assertEquals(2, this.tipCalcStartsGroups2.getNumOfGroups());
+		assertEquals(expectedTotalBill/2, this.tipCalcStartsGroups2.getGroupPaysAmount(),DOUBLE_DELTA);
 	}
 	
 	@Test
@@ -532,19 +535,19 @@ public class TipCalcTests
 		double expectedTotalBill = 22.0;
 		int expectedNumGroups = 2;
 		double expectedAmountPerGroup = expectedTotalBill / expectedNumGroups;
-		this.tipCalcStartsAllClear.setBillAmount(expectedBillAmount);
-		this.tipCalcStartsAllClear.setTipAmount(expectedTipAmount);
+		this.tipCalcStartsGroups2.setBillAmount(expectedBillAmount);
+		this.tipCalcStartsGroups2.setTipAmount(expectedTipAmount);
 
 		//act
-		this.tipCalcStartsAllClear.setNumOfGroups(expectedNumGroups);
+		this.tipCalcStartsGroups2.setNumOfGroups(expectedNumGroups);
 		
 		//check postconditions
-		assertEquals(expectedBillAmount, this.tipCalcStartsAllClear.getBillAmount(),DOUBLE_DELTA);
-		assertEquals(expectedTipPercent, this.tipCalcStartsAllClear.getTipPercent(),DOUBLE_DELTA);
-		assertEquals(expectedTipAmount, this.tipCalcStartsAllClear.getTipAmount(), DOUBLE_DELTA);
-		assertEquals(expectedTotalBill, this.tipCalcStartsAllClear.getTotalAmount(),DOUBLE_DELTA);
-		assertEquals(expectedNumGroups, this.tipCalcStartsAllClear.getNumOfGroups());
-		assertEquals(expectedAmountPerGroup, this.tipCalcStartsAllClear.getGroupPaysAmount(),DOUBLE_DELTA);
+		assertEquals(expectedBillAmount, this.tipCalcStartsGroups2.getBillAmount(),DOUBLE_DELTA);
+		assertEquals(expectedTipPercent, this.tipCalcStartsGroups2.getTipPercent(),DOUBLE_DELTA);
+		assertEquals(expectedTipAmount, this.tipCalcStartsGroups2.getTipAmount(), DOUBLE_DELTA);
+		assertEquals(expectedTotalBill, this.tipCalcStartsGroups2.getTotalAmount(),DOUBLE_DELTA);
+		assertEquals(expectedNumGroups, this.tipCalcStartsGroups2.getNumOfGroups());
+		assertEquals(expectedAmountPerGroup, this.tipCalcStartsGroups2.getGroupPaysAmount(),DOUBLE_DELTA);
 	}
 	
 	@Test
@@ -595,6 +598,75 @@ public class TipCalcTests
 		assertEquals(expectedNumGroups, this.tipCalcStartsAllClear.getNumOfGroups());
 		assertEquals(expectedTotalBill, this.tipCalcStartsAllClear.getGroupPaysAmount(),DOUBLE_DELTA);
 
+	}
+
+	@Test
+	public void setTotalAmountGreaterThanBillAmount()
+	{
+		//set preconditions
+		double expectedTotalAmount = 15.00;
+		double expectedBillAmount = 10.50;
+		double expectedTipAmount = expectedTotalAmount - expectedBillAmount;
+		int expectedTipPercent = 43;
+		this.tipCalcStartsGroups2.setBillAmount(expectedBillAmount);
+
+		//act
+		this.tipCalcStartsGroups2.setTotalAmount(expectedTotalAmount);
+		
+		//check postconditions
+		assertEquals(expectedBillAmount, this.tipCalcStartsGroups2.getBillAmount(),DOUBLE_DELTA);
+		assertEquals(expectedTipPercent, this.tipCalcStartsGroups2.getTipPercentAsInt());
+		assertEquals(expectedTipAmount, this.tipCalcStartsGroups2.getTipAmount(), DOUBLE_DELTA);
+		assertEquals(expectedTotalAmount, this.tipCalcStartsGroups2.getTotalAmount(),DOUBLE_DELTA);
+		assertEquals(2, this.tipCalcStartsGroups2.getNumOfGroups());
+		assertEquals(expectedTotalAmount/2, this.tipCalcStartsGroups2.getGroupPaysAmount(),DOUBLE_DELTA);
+	}
+	
+
+	@Test
+	public void setTotalAmountWithZeroBillAmount()
+	{
+		//set preconditions
+		double expectedTotalAmount = 0.0;
+		double expectedBillAmount = 0.0;
+		double expectedTipAmount = 0.0;
+		int expectedTipPercent = 0;
+
+		//act
+		this.tipCalcStartsAllClear.setTotalAmount(expectedTotalAmount);
+		
+		//check postconditions
+		assertEquals(expectedBillAmount, this.tipCalcStartsAllClear.getBillAmount(),DOUBLE_DELTA);
+		assertEquals(expectedTipPercent, this.tipCalcStartsAllClear.getTipPercentAsInt());
+		assertEquals(expectedTipAmount, this.tipCalcStartsAllClear.getTipAmount(), DOUBLE_DELTA);
+		assertEquals(expectedTotalAmount, this.tipCalcStartsAllClear.getTotalAmount(),DOUBLE_DELTA);
+		assertEquals(1, this.tipCalcStartsAllClear.getNumOfGroups());
+		assertEquals(expectedTotalAmount, this.tipCalcStartsAllClear.getGroupPaysAmount(),DOUBLE_DELTA);
+		
+	}
+
+ 
+	@Test
+	public void setTotalAmountLessThanBillAmount()
+	{
+		//set preconditions
+		double expectedTotalAmount = 15.50;
+		double expectedBillAmount = 15.50;
+		double expectedTipAmount = 0;
+		int expectedTipPercent = 0;
+		this.tipCalcStartsAllClear.setBillAmount(expectedBillAmount);
+
+		//act
+		this.tipCalcStartsAllClear.setTotalAmount(14.49);
+		
+		//check postconditions
+		assertEquals(expectedBillAmount, this.tipCalcStartsAllClear.getBillAmount(),DOUBLE_DELTA);
+		assertEquals(expectedTipPercent, this.tipCalcStartsAllClear.getTipPercentAsInt());
+		assertEquals(expectedTipAmount, this.tipCalcStartsAllClear.getTipAmount(), DOUBLE_DELTA);
+		assertEquals(expectedTotalAmount, this.tipCalcStartsAllClear.getTotalAmount(),DOUBLE_DELTA);
+		assertEquals(1, this.tipCalcStartsAllClear.getNumOfGroups());
+		assertEquals(expectedTotalAmount, this.tipCalcStartsAllClear.getGroupPaysAmount(),DOUBLE_DELTA);
+		
 	}
 
 	
