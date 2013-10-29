@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.tkaken.androidjudgetipcalc.R.color;
 import com.tkaken.tipCalc.TipCalcState;
 import com.tkaken.tipRules.Judgement;
 import com.tkaken.tipRules.JudgementValues;
@@ -43,9 +42,9 @@ public class JudgeTipCalcMainActivity extends Activity
 	private EditText billAmount_ET;
 	private EditText tipPercent_ET;
 	private EditText tipAmount_ET;
-	private TextView totalAmount_TV;
+	private EditText totalAmount_ET;
 	private EditText numberOfGroups_ET;
-	private TextView groupPaysAmount_TV;
+	private EditText groupPaysAmount_ET;
 	private TextView judgementMessage_TV;
 	
 	//table rows
@@ -121,9 +120,9 @@ public class JudgeTipCalcMainActivity extends Activity
 		billAmount_ET = (EditText) findViewById(R.id.billAmountEditText);
 		tipPercent_ET = (EditText) findViewById(R.id.tipPercenttEditText);		
 		tipAmount_ET = (EditText) findViewById(R.id.tipAmountEditText);
-		totalAmount_TV = (TextView) findViewById(R.id.totalAmountValueTextView);		
+		totalAmount_ET = (EditText) findViewById(R.id.totalAmountEditText);		
 		numberOfGroups_ET = (EditText) findViewById(R.id.numPeopleEditText);		
-		groupPaysAmount_TV = (TextView) findViewById(R.id.perPersonAmountValueTextView);
+		groupPaysAmount_ET = (EditText) findViewById(R.id.perPersonAmountEditText);
 		judgementMessage_TV = (TextView) findViewById(R.id.judgementTextView);
 		judgementMessage_TR = (TableRow) findViewById(R.id.messageRow);
 	}
@@ -160,6 +159,9 @@ public class JudgeTipCalcMainActivity extends Activity
 	{
 		billAmount_ET.addTextChangedListener(billAmountListener);
 		billAmount_ET.setOnFocusChangeListener(billAmountFocusChangeListener);
+		
+		totalAmount_ET.addTextChangedListener(totalAmountListener);
+		totalAmount_ET.setOnFocusChangeListener(totalAmountFocusChangeListener);
 		
 		tipPercent_ET.addTextChangedListener(tipPercentListener);
 		tipPercent_ET.setOnFocusChangeListener(tipPercentFocusChangeListener);
@@ -394,6 +396,64 @@ public class JudgeTipCalcMainActivity extends Activity
 		}
 	}; 
 	
+
+	private TextWatcher totalAmountListener = new TextWatcher()
+	{
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after)
+		{
+		}
+
+		@Override
+		public void onTextChanged(CharSequence enteredText, int start,
+				int before, int count)
+		{
+			try
+			{
+				tipCalcState.setTotalAmount(Double.parseDouble(enteredText.toString()));
+			} catch (NumberFormatException e)
+			{
+				tipCalcState.setTotalAmount(0.0);
+			}
+			
+			setUserRequestedDataUpdate(false);
+			
+			updateTipAmountOnScreen();	
+			updateTipPercentOnScreen();
+			updateGroupPaysAmountOnScreen();
+			
+			updateJudgementMsg();
+			
+			setUserRequestedDataUpdate(true);
+
+		}
+
+		@Override
+		public void afterTextChanged(Editable s)
+		{
+			
+		}
+
+	};
+
+	private OnFocusChangeListener totalAmountFocusChangeListener = new OnFocusChangeListener()
+	{
+		
+		@Override
+		public void onFocusChange(View v, boolean hasFocus)
+		{
+			if (!hasFocus)
+			{
+				setUserRequestedDataUpdate(false);
+				updateDecimalTextView(billAmount_ET, tipCalcState.getBillAmount());
+				setUserRequestedDataUpdate(true);
+			}
+		}
+	}; 
+	
+	
 	
 
 	private TextWatcher numGroupsListener = new TextWatcher()
@@ -499,7 +559,7 @@ public class JudgeTipCalcMainActivity extends Activity
 
 	private void updateTotalAmountOnScreen()
 	{
-		updateDecimalTextView(totalAmount_TV, tipCalcState.getTotalAmount());
+		updateDecimalTextView(totalAmount_ET, tipCalcState.getTotalAmount());
 	}
 
 
@@ -511,7 +571,7 @@ public class JudgeTipCalcMainActivity extends Activity
 
 	private void updateGroupPaysAmountOnScreen()
 	{
-		updateDecimalTextView(groupPaysAmount_TV, tipCalcState.getGroupPaysAmount());
+		updateDecimalTextView(groupPaysAmount_ET, tipCalcState.getGroupPaysAmount());
 	}
 
 

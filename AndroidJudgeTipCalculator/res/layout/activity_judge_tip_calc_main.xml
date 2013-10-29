@@ -72,11 +72,13 @@
             android:id="@+id/totalAmountTextView"
             android:text="@string/total_amount_text_view" />
 
-        <TextView
-            android:id="@+id/totalAmountValueTextView"
-            android:background="@drawable/rectangle_border"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
+        <EditText
+            android:id="@+id/totalAmountEditText"
+            android:ems="5"
+            android:inputType="numberDecimal" >
+        </EditText>
+        
+        
     </TableRow>
 
     <TableRow android:id="@+id/numPeopleRow" >
@@ -100,11 +102,12 @@
             android:id="@+id/perPersonAmountTextView"
             android:text="@string/group_pays_text_view" />
 
-        <TextView
-            android:id="@+id/perPersonAmountValueTextView"
-            android:background="@drawable/rectangle_border"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
+        <EditText
+            android:id="@+id/perPersonAmountEditText"
+            android:ems="5"
+            android:inputType="numberDecimal" >
+        </EditText>
+ 
     </TableRow>
 
     <TableRow
