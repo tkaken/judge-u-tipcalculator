@@ -171,6 +171,10 @@ public class JudgeTipCalcMainActivity extends Activity
 
 		numberOfGroups_ET.addTextChangedListener(numGroupsListener);
 		numberOfGroups_ET.setOnFocusChangeListener(numGroupsFocusChangeListener);
+
+		groupPaysAmount_ET.addTextChangedListener(groupPaysAmountAmountListener);
+		groupPaysAmount_ET.setOnFocusChangeListener(groupPaysAmountFocusChangeListener);
+		
 	}
 
 
@@ -410,24 +414,26 @@ public class JudgeTipCalcMainActivity extends Activity
 		public void onTextChanged(CharSequence enteredText, int start,
 				int before, int count)
 		{
-			try
+			if (isUserRequestedDataUpdate())
 			{
-				tipCalcState.setTotalAmount(Double.parseDouble(enteredText.toString()));
-			} catch (NumberFormatException e)
-			{
-				tipCalcState.setTotalAmount(0.0);
-			}
-			
-			setUserRequestedDataUpdate(false);
-			
-			updateTipAmountOnScreen();	
-			updateTipPercentOnScreen();
-			updateGroupPaysAmountOnScreen();
-			
-			updateJudgementMsg();
-			
-			setUserRequestedDataUpdate(true);
+				try
+				{
+					tipCalcState.setTotalAmount(Double.parseDouble(enteredText.toString()));
+				} catch (NumberFormatException e)
+				{
+					tipCalcState.setTotalAmount(0.0);
+				}
 
+				setUserRequestedDataUpdate(false);
+
+				updateTipAmountOnScreen();	
+				updateTipPercentOnScreen();
+				updateGroupPaysAmountOnScreen();
+
+				updateJudgementMsg();
+
+				setUserRequestedDataUpdate(true);
+			}
 		}
 
 		@Override
@@ -504,6 +510,64 @@ public class JudgeTipCalcMainActivity extends Activity
 			}
 		}
 	}; 
+	
+	private TextWatcher groupPaysAmountAmountListener = new TextWatcher()
+	{
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after)
+		{
+		}
+
+		@Override
+		public void onTextChanged(CharSequence enteredText, int start,
+				int before, int count)
+		{
+			if (isUserRequestedDataUpdate())
+			{
+				try
+				{
+					tipCalcState.setEachGroupPays(Double.parseDouble(enteredText.toString()));
+				} catch (NumberFormatException e)
+				{
+					tipCalcState.setEachGroupPays(0.0);
+				}
+
+				setUserRequestedDataUpdate(false);
+
+				updateTipAmountOnScreen();	
+				updateTipPercentOnScreen();
+				updateTotalAmountOnScreen();			
+				updateJudgementMsg();
+
+				setUserRequestedDataUpdate(true);
+			}
+		}
+
+		@Override
+		public void afterTextChanged(Editable s)
+		{
+			
+		}
+
+	};
+
+	private OnFocusChangeListener groupPaysAmountFocusChangeListener = new OnFocusChangeListener()
+	{
+		
+		@Override
+		public void onFocusChange(View v, boolean hasFocus)
+		{
+			if (!hasFocus)
+			{
+				setUserRequestedDataUpdate(false);
+				updateDecimalTextView(groupPaysAmount_ET, tipCalcState.getGroupPaysAmount());
+				setUserRequestedDataUpdate(true);
+			}
+		}
+	}; 
+	
 	
 	
 	
