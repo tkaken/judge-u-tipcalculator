@@ -1,5 +1,7 @@
 package com.tkaken.utilities;
 
+import java.math.BigDecimal;
+
 public final class CalcMath
 {
 	static public int roundUp(double numberToRound, int round_multiple)
@@ -34,8 +36,9 @@ public final class CalcMath
 		return (int) rounded;
 	}
 
-	//TODO implement floating compare
-/*	private boolean doubleEquals(double other) {
-	    return (Math.abs(this.mAmount - convertedAmount(other)) < EPSILON);
-	}*/
+	static public boolean isDoublePositive(double inValue)
+	{
+		return BigDecimal.valueOf(inValue).compareTo(BigDecimal.ZERO) > 0;
+	}
+
 }

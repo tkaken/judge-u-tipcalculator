@@ -37,6 +37,7 @@ public class JudgeTipCalcMainActivity extends Activity
 	private static String GROUP_PAYS_KEY = "GROUP_PAYS";
 	private static String JUDGEMENT_MSG_KEY = "JUDGEMENT_MSG";
 
+	
 
 	// hold text data for data entry fields
 	private EditText billAmount_ET;
