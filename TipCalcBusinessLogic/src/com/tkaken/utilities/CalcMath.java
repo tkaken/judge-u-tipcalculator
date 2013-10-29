@@ -41,4 +41,9 @@ public final class CalcMath
 		return BigDecimal.valueOf(inValue).compareTo(BigDecimal.ZERO) > 0;
 	}
 
+	public static int compareDouble(double double1, double double2)
+	{
+		return BigDecimal.valueOf(double1).compareTo(BigDecimal.valueOf(double2));
+	}
+
 }

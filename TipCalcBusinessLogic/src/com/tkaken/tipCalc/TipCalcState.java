@@ -1,7 +1,5 @@
 package com.tkaken.tipCalc;
 
-import java.math.BigDecimal;
-
 import com.tkaken.utilities.CalcMath;
 
 public class TipCalcState
@@ -99,8 +97,8 @@ public class TipCalcState
 
 	private void calculateTipPercent()
 	{
-		if (BigDecimal.valueOf(this.billAmount).compareTo(BigDecimal.ZERO) == 0 ||
-				BigDecimal.valueOf(tipAmount).compareTo(BigDecimal.ZERO) <= 0	)
+		if (!CalcMath.isDoublePositive(billAmount) ||
+			!CalcMath.isDoublePositive(tipAmount))
 		{
 			this.tipAmount = 0.0;
 			this.tipPercent = 0.0;
@@ -156,7 +154,7 @@ public class TipCalcState
 
 	public void setTotalAmount(double inTotalAmount)
 	{
-		if (BigDecimal.valueOf(inTotalAmount).compareTo(BigDecimal.valueOf(billAmount)) < 0) 
+		if (CalcMath.compareDouble(inTotalAmount, billAmount) < 0) 
 		{
 			totalAmount = billAmount;
 		}
@@ -179,7 +177,7 @@ public class TipCalcState
 
 	public void setEachGroupPays(double inGroupAmount)
 	{
-		if (BigDecimal.valueOf(inGroupAmount*numOfGroups).compareTo(BigDecimal.valueOf(billAmount)) < 0)
+		if (CalcMath.compareDouble(inGroupAmount*numOfGroups, billAmount) < 0)
 		{
 			groupPaysAmount = billAmount / numOfGroups;
 			totalAmount = billAmount;
