@@ -447,7 +447,7 @@ public class JudgeTipCalcMainActivity extends Activity
 			if (!hasFocus)
 			{
 				setUserRequestedDataUpdate(false);
-				updateDecimalTextView(billAmount_ET, tipCalcState.getBillAmount());
+				updateDecimalTextView(totalAmount_ET, tipCalcState.getTotalAmount());
 				setUserRequestedDataUpdate(true);
 			}
 		}
