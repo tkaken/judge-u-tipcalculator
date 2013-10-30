@@ -84,4 +84,22 @@ public class CalcMathTests
 		assertEquals(-5, CalcMath.roundDown(-0.1,round_increment));
 	}
 
+	@Test
+	public void testAboveCeiling()
+	{
+		assertEquals(5.0, CalcMath.getDoubleBelowCeiling(5.01, 5.0), 0.001);
+	}
+
+	@Test
+	public void testAtCeiling()
+	{
+		assertEquals(5.0, CalcMath.getDoubleBelowCeiling(5.00, 5.00), 0.001);
+	}
+
+	@Test
+	public void testBelowCeiling()
+	{
+		assertEquals(5.0, CalcMath.getDoubleBelowCeiling(5.00, 5.01), 0.001);
+	}
+
 }

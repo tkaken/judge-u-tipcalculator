@@ -4,6 +4,13 @@ import com.tkaken.utilities.CalcMath;
 
 public class TipCalcState
 {
+	private static final double MAX_TIP_PERCENT = 1.00;
+	private static final double MAX_BILL_AMOUNT = 9999.99;
+	private static final double MAX_TIP_AMOUNT = MAX_TIP_PERCENT * MAX_BILL_AMOUNT;
+	private static final double MAX_TOTAL_AMOUNT = MAX_BILL_AMOUNT + MAX_TIP_AMOUNT;
+	private static final int MAX_NUMBER_GROUPS = 99;
+
+
 	private static final int TIP_BUMP_AMOUNT = 5;
 	
 	// hold values received from data entry fields
@@ -52,6 +59,8 @@ public class TipCalcState
 
 	public void setBillAmount(double inValue)
 	{
+        inValue = CalcMath.getDoubleBelowCeiling(inValue, MAX_BILL_AMOUNT);
+		
 		if (CalcMath.isDoublePositive(inValue))
 		{
 			this.billAmount = inValue;			
@@ -69,6 +78,8 @@ public class TipCalcState
 
 	public void setTipPercent(double inValue)
 	{
+        inValue = CalcMath.getDoubleBelowCeiling(inValue, MAX_TIP_PERCENT);
+		
 		if (CalcMath.isDoublePositive(inValue))
 		{
 			this.tipPercent = inValue;	
@@ -87,7 +98,9 @@ public class TipCalcState
 
 	public void setTipAmount(double inValue)
 	{
-		this.tipAmount = inValue;
+        inValue = CalcMath.getDoubleBelowCeiling(inValue, MAX_TIP_AMOUNT);
+
+        this.tipAmount = inValue;
 		
 		calculateTipPercent();
 		
@@ -116,6 +129,11 @@ public class TipCalcState
 
 	public void setNumOfGroups(int inValue)
 	{
+		if (inValue > MAX_NUMBER_GROUPS)
+		{
+			inValue = MAX_NUMBER_GROUPS;
+		}
+		
 		if (inValue > 0)
 		{
 			this.numOfGroups = inValue;
@@ -154,6 +172,8 @@ public class TipCalcState
 
 	public void setTotalAmount(double inTotalAmount)
 	{
+		inTotalAmount = CalcMath.getDoubleBelowCeiling(inTotalAmount, MAX_TOTAL_AMOUNT);
+        
 		if (CalcMath.compareDouble(inTotalAmount, billAmount) < 0) 
 		{
 			totalAmount = billAmount;

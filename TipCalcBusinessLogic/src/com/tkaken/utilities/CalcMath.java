@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public final class CalcMath
 {
-	static public int roundUp(double numberToRound, int round_multiple)
+	public static int roundUp(double numberToRound, int round_multiple)
 	{
 		double rounded;
 		
@@ -20,7 +20,7 @@ public final class CalcMath
 		return (int) rounded;
 	}
 	
-	static public int roundDown(double numberToRound, int round_multiple)
+	public static int roundDown(double numberToRound, int round_multiple)
 	{
 		double rounded;
 		
@@ -36,7 +36,7 @@ public final class CalcMath
 		return (int) rounded;
 	}
 
-	static public boolean isDoublePositive(double inValue)
+	public static boolean isDoublePositive(double inValue)
 	{
 		return BigDecimal.valueOf(inValue).compareTo(BigDecimal.ZERO) > 0;
 	}
@@ -45,5 +45,15 @@ public final class CalcMath
 	{
 		return BigDecimal.valueOf(double1).compareTo(BigDecimal.valueOf(double2));
 	}
+
+	public static double getDoubleBelowCeiling(double inValue, double ceiling)
+	{
+		if (CalcMath.compareDouble(inValue, ceiling) > 0)
+        {
+        	inValue = ceiling;
+        }
+		return inValue;
+	}
+
 
 }

@@ -11,11 +11,16 @@ import com.tkaken.tipCalc.TipCalcState;
 
 public class TipCalcTests 
 {
+	private static final int MAX_NUM_GROUPS = 99;
+	private static final double MAX_TIP_PERCENT = 1.00;
+	private static final double MAX_BILL_AMOUNT = 9999.99;
+	private static final double MAX_TIP_AMOUNT = MAX_BILL_AMOUNT*MAX_TIP_PERCENT;
+	private static final double MAX_TOTAL_AMOUNT = MAX_BILL_AMOUNT + MAX_TIP_AMOUNT;
 	private TipCalcState tipCalcStartsAllClear;
 	private TipCalcState tipCalcStartsBill20Groups2;
 	private TipCalcState tipCalcStartsGroups2;
 	private TipCalcState tipCalcStartsGroups3;
-	private static final double DOUBLE_DELTA = 0.01;
+	private static final double DOUBLE_DELTA = 0.001;
 
     @Before
 	public void setUp() throws Exception
@@ -168,6 +173,61 @@ public class TipCalcTests
 		assertEquals(numOfGroups, this.tipCalcStartsAllClear.getNumOfGroups());
 		assertEquals(expectedTotalBill/numOfGroups, this.tipCalcStartsAllClear.getGroupPaysAmount(),DOUBLE_DELTA);
 	}
+
+	@Test
+	public void setBillWhenTooHigh()
+	{
+		//set preconditions
+		double expectedBillAmount = MAX_BILL_AMOUNT;
+
+		//act
+		this.tipCalcStartsAllClear.setBillAmount(MAX_BILL_AMOUNT + .01);
+		
+		//check postconditions
+		assertEquals(expectedBillAmount, this.tipCalcStartsAllClear.getBillAmount(),DOUBLE_DELTA);
+	}
+	
+	@Test
+	public void setMaxBill()
+	{
+		//set preconditions
+		double expectedBillAmount = MAX_BILL_AMOUNT;
+
+		//act
+		this.tipCalcStartsAllClear.setBillAmount(expectedBillAmount);
+		
+		//check postconditions
+		assertEquals(expectedBillAmount, this.tipCalcStartsAllClear.getBillAmount(),DOUBLE_DELTA);
+	}
+	
+	@Test
+	public void setTipPercentWhenTooHigh()
+	{
+		//set preconditions
+		double expectedTipPercent = MAX_TIP_PERCENT;
+
+		//act
+		this.tipCalcStartsAllClear.setTipPercent(MAX_TIP_PERCENT + .01);
+		
+		//check postconditions
+		assertEquals(expectedTipPercent, this.tipCalcStartsAllClear.getTipPercent(),DOUBLE_DELTA);
+	}
+
+	
+	@Test
+	public void setMaxTipPercent()
+	{
+		//set preconditions
+		double expectedTipPercent = MAX_TIP_PERCENT;
+
+		//act
+		this.tipCalcStartsAllClear.setTipPercent(MAX_TIP_PERCENT);
+		
+		//check postconditions
+		assertEquals(expectedTipPercent, this.tipCalcStartsAllClear.getTipPercent(),DOUBLE_DELTA);
+	}
+
+	
 	
 	@Test
 	public void setNonZeroTipPercentWhenNonZeroTotalBill()
@@ -527,6 +587,34 @@ public class TipCalcTests
 		assertEquals(1, this.tipCalcStartsAllClear.getNumOfGroups());
 		assertEquals(expectedTotalBill, this.tipCalcStartsAllClear.getGroupPaysAmount(),DOUBLE_DELTA);
 	}
+
+	@Test
+	public void setTipAmountTooHigh()
+	{
+		//set preconditions
+		double expectedTipAmount = MAX_TIP_AMOUNT;
+		tipCalcStartsAllClear.setBillAmount(MAX_BILL_AMOUNT);
+
+		//act
+		this.tipCalcStartsAllClear.setTipAmount(MAX_TIP_AMOUNT + .01);
+		
+		//check postconditions
+		assertEquals(expectedTipAmount, this.tipCalcStartsAllClear.getTipAmount(),DOUBLE_DELTA);
+	}
+	
+	@Test
+	public void setMaxTipAmount()
+	{
+		double expectedTipAmount = MAX_TIP_AMOUNT;
+		tipCalcStartsAllClear.setBillAmount(MAX_BILL_AMOUNT);
+
+		//act
+		this.tipCalcStartsAllClear.setTipAmount(MAX_TIP_AMOUNT);
+		
+		//check postconditions
+		assertEquals(expectedTipAmount, this.tipCalcStartsAllClear.getTipAmount(),DOUBLE_DELTA);
+	}
+	
 	
 
 	@Test
@@ -603,6 +691,34 @@ public class TipCalcTests
 		assertEquals(expectedTotalBill, this.tipCalcStartsAllClear.getGroupPaysAmount(),DOUBLE_DELTA);
 
 	}
+	
+	@Test
+	public void setNumGroupsTooHigh()
+	{
+		//set preconditions
+		int expectedNumberOfGroups = MAX_NUM_GROUPS;
+		
+		//act
+		this.tipCalcStartsAllClear.setNumOfGroups(MAX_NUM_GROUPS+1);
+		
+		//check postconditions
+		assertEquals(expectedNumberOfGroups, tipCalcStartsAllClear.getNumOfGroups());
+		
+	}
+
+	@Test
+	public void setMaxNumGroups()
+	{
+		//set preconditions
+		int expectedNumberOfGroups = MAX_NUM_GROUPS;
+		
+		//act
+		this.tipCalcStartsAllClear.setNumOfGroups(MAX_NUM_GROUPS);
+		
+		//check postconditions
+		assertEquals(expectedNumberOfGroups, tipCalcStartsAllClear.getNumOfGroups());
+		
+	}
 
 	@Test
 	public void setTotalAmountGreaterThanBillAmount()
@@ -673,6 +789,36 @@ public class TipCalcTests
 		
 	}
 
+
+	@Test
+	public void setTotalAmountWhenTooHigh()
+	{
+		//set preconditions
+		double expectedTotalAmount = MAX_TOTAL_AMOUNT ;
+
+		//act
+		this.tipCalcStartsAllClear.setTotalAmount(MAX_TOTAL_AMOUNT + .01);
+		
+		//check postconditions
+		assertEquals(expectedTotalAmount, this.tipCalcStartsAllClear.getTotalAmount(),DOUBLE_DELTA);
+	}
+	
+	
+	@Test
+	public void setMaxTotalAmount()
+	{
+		//set preconditions
+		double expectedTotalAmount = MAX_TOTAL_AMOUNT ;
+
+		//act
+		this.tipCalcStartsAllClear.setTotalAmount(MAX_TOTAL_AMOUNT);
+		
+		//check postconditions
+		assertEquals(expectedTotalAmount, this.tipCalcStartsAllClear.getTotalAmount(),DOUBLE_DELTA);
+	}
+	
+	
+	
 	@Test
 	public void setGroupPayMoreThanBillAmountAmount()
 	{
