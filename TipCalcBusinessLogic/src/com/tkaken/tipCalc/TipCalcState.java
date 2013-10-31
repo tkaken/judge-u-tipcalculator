@@ -1,5 +1,7 @@
 package com.tkaken.tipCalc;
 
+import java.math.BigDecimal;
+
 import com.tkaken.utilities.CalcMath;
 
 public class TipCalcState
@@ -172,21 +174,31 @@ public class TipCalcState
 
 	public void setTotalAmount(double inTotalAmount)
 	{
-		inTotalAmount = CalcMath.getDoubleBelowCeiling(inTotalAmount, MAX_TOTAL_AMOUNT);
+		totalAmount = inTotalAmount;
+		
+		if ( totalAmountForcesTipPercentOverMax(totalAmount) )
+		{
+			totalAmount = billAmount + (billAmount*MAX_TIP_PERCENT);
+		}
+		
+		totalAmount = CalcMath.getDoubleBelowCeiling(totalAmount, MAX_TOTAL_AMOUNT);
         
-		if (CalcMath.compareDouble(inTotalAmount, billAmount) < 0) 
+		if (CalcMath.compareDouble(totalAmount, billAmount) < 0) 
 		{
 			totalAmount = billAmount;
 		}
-		else
-		{
-			totalAmount = inTotalAmount;
-			
-		}
-		
+
 		calculateTipAmount();
 		calculateTipPercent();
 		calculateGroupPaysAmount();
+	}
+
+	private boolean totalAmountForcesTipPercentOverMax(double proposedTotal)
+	{
+		if (BigDecimal.valueOf(billAmount).compareTo(BigDecimal.ZERO) == 0) return false;
+		
+		double newTipPercent = (proposedTotal-billAmount)/billAmount;
+		return CalcMath.compareDouble(newTipPercent, MAX_TIP_PERCENT) > 0;
 	}
 
 	private void calculateTipAmount()

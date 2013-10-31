@@ -20,7 +20,7 @@ public class TipCalcTests
 	private TipCalcState tipCalcStartsBill20Groups2;
 	private TipCalcState tipCalcStartsGroups2;
 	private TipCalcState tipCalcStartsGroups3;
-	private static final double DOUBLE_DELTA = 0.001;
+	private static final double DOUBLE_DELTA = 0.01;
 
     @Before
 	public void setUp() throws Exception
@@ -379,6 +379,7 @@ public class TipCalcTests
 		//act
 		assertEquals(10, this.tipCalcStartsAllClear.getTipPercentAsInt());
 	}
+		
 	
     @Test
     public void bumpUpTipPercentMultipleOf5()
@@ -817,7 +818,42 @@ public class TipCalcTests
 		assertEquals(expectedTotalAmount, this.tipCalcStartsAllClear.getTotalAmount(),DOUBLE_DELTA);
 	}
 	
+
+	@Test
+	public void totalAmountCausesTipPercentGreaterThanMax()
+	{
+		//set preconditions
+		double expectedBillAmount = 2.0;
+		double expectedTotalAmount = 4.0;
+		double expectedTipPercent = MAX_TIP_PERCENT;
+		this.tipCalcStartsAllClear.setBillAmount(expectedBillAmount);
+
+		//act
+		this.tipCalcStartsAllClear.setTotalAmount(9000.0);
+		
+		//check postconditions
+		assertEquals(expectedBillAmount, this.tipCalcStartsAllClear.getBillAmount(),DOUBLE_DELTA);
+		assertEquals(expectedTipPercent, this.tipCalcStartsAllClear.getTipPercent(),DOUBLE_DELTA);
+		assertEquals(expectedTotalAmount, this.tipCalcStartsAllClear.getTotalAmount(),DOUBLE_DELTA);		
+	}
 	
+	@Test
+	public void totalAmountCausesTipPercentEqualToMax()
+	{
+		//set preconditions
+		double expectedBillAmount = 2.0;
+		double expectedTotalAmount = expectedBillAmount + (expectedBillAmount*MAX_TIP_PERCENT);
+		double expectedTipPercent = MAX_TIP_PERCENT;
+		this.tipCalcStartsAllClear.setBillAmount(expectedBillAmount);
+
+		//act
+		this.tipCalcStartsAllClear.setTotalAmount(expectedBillAmount + (expectedBillAmount*MAX_TIP_PERCENT));
+		
+		//check postconditions
+		assertEquals(expectedBillAmount, this.tipCalcStartsAllClear.getBillAmount(),DOUBLE_DELTA);
+		assertEquals(expectedTipPercent, this.tipCalcStartsAllClear.getTipPercent(),DOUBLE_DELTA);
+		assertEquals(expectedTotalAmount, this.tipCalcStartsAllClear.getTotalAmount(),DOUBLE_DELTA);		
+	}
 	
 	@Test
 	public void setGroupPayMoreThanBillAmountAmount()

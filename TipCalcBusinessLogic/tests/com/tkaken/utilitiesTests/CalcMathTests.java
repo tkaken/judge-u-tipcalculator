@@ -12,6 +12,7 @@ import com.tkaken.utilities.CalcMath;
 public class CalcMathTests
 {
 
+	private static final double DOUBLE_DELTA = 0.01;
 	public static final int round_increment = 5;
 	
 	@Before
@@ -87,19 +88,19 @@ public class CalcMathTests
 	@Test
 	public void testAboveCeiling()
 	{
-		assertEquals(5.0, CalcMath.getDoubleBelowCeiling(5.01, 5.0), 0.001);
+		assertEquals(5.0, CalcMath.getDoubleBelowCeiling(5.01, 5.0), DOUBLE_DELTA);
 	}
 
 	@Test
 	public void testAtCeiling()
 	{
-		assertEquals(5.0, CalcMath.getDoubleBelowCeiling(5.00, 5.00), 0.001);
+		assertEquals(5.0, CalcMath.getDoubleBelowCeiling(5.00, 5.00), DOUBLE_DELTA);
 	}
 
 	@Test
 	public void testBelowCeiling()
 	{
-		assertEquals(5.0, CalcMath.getDoubleBelowCeiling(5.00, 5.01), 0.001);
+		assertEquals(5.0, CalcMath.getDoubleBelowCeiling(5.00, 5.01), DOUBLE_DELTA);
 	}
 
 }
