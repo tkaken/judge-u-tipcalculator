@@ -140,7 +140,7 @@ public class TipCalcState
 		{
 			this.numOfGroups = inValue;
 		}
-		else
+		else if (0 == inValue)
 		{
 			this.numOfGroups = 1;
 		}
@@ -209,14 +209,21 @@ public class TipCalcState
 
 	public void setEachGroupPays(double inGroupAmount)
 	{
-		if (CalcMath.compareDouble(inGroupAmount*numOfGroups, billAmount) < 0)
+		groupPaysAmount = inGroupAmount;
+		
+		if ( totalAmountForcesTipPercentOverMax(groupPaysAmount*numOfGroups) )
+		{
+			double tempTotalAmount = billAmount + (billAmount*MAX_TIP_PERCENT);
+			groupPaysAmount = tempTotalAmount / numOfGroups;
+		}
+		
+		if (CalcMath.compareDouble(groupPaysAmount*numOfGroups, billAmount) < 0)
 		{
 			groupPaysAmount = billAmount / numOfGroups;
 			totalAmount = billAmount;
 		}
 		else if ( CalcMath.isDoublePositive(billAmount) )
 		{
-			groupPaysAmount = inGroupAmount;
 			totalAmount = groupPaysAmount * numOfGroups;
 		}
 		else 

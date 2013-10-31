@@ -14,6 +14,7 @@
             android:id="@+id/billAmountEditText"
             android:ems="5"
             android:inputType="numberDecimal"
+            android:maxLength="7"
             android:textAppearance="?android:attr/textAppearanceMedium" >
                         <requestFocus />
         </EditText>
@@ -31,6 +32,7 @@
             android:id="@+id/tipPercenttEditText"
             android:ems="5"
             android:hint="@string/tip_percent_hint_text"
+            android:maxLength="3"
             android:inputType="number" >
 
         </EditText>
@@ -61,6 +63,7 @@
         <EditText
             android:id="@+id/tipAmountEditText"
             android:ems="5"
+            android:maxLength="8"
             android:inputType="numberDecimal" >
         </EditText>
         
@@ -75,6 +78,7 @@
         <EditText
             android:id="@+id/totalAmountEditText"
             android:ems="5"
+            android:maxLength="8"
             android:inputType="numberDecimal" >
         </EditText>
         
@@ -90,6 +94,7 @@
         <EditText
             android:id="@+id/numPeopleEditText"
             android:ems="5"
+            android:maxLength="2"
             android:inputType="number" >
 
 
@@ -105,6 +110,7 @@
         <EditText
             android:id="@+id/perPersonAmountEditText"
             android:ems="5"
+            android:maxLength="8"
             android:inputType="numberDecimal" >
         </EditText>
  
@@ -121,7 +127,7 @@
             android:layout_span="4"
             android:text="@string/judgement_init_text_view"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="17dp"
+            android:textSize="17sp"
             android:typeface="serif" />
 
     </TableRow>

@@ -928,5 +928,24 @@ public class TipCalcTests
 		assertEquals(expectedGroupAmount, this.tipCalcStartsGroups3.getGroupPaysAmount(),DOUBLE_DELTA);
 	}
 
+	@Test
+	public void groupPaysAmountCausesTipPercentGreaterThanMax()
+	{
+		//set preconditions
+		double expectedBillAmount = 3.0;
+		double expectedTipPercent = MAX_TIP_PERCENT;
+		double expectedEachGroupPays = .2;
+		this.tipCalcStartsAllClear.setBillAmount(expectedBillAmount);
+		tipCalcStartsAllClear.setNumOfGroups(30);
+
+		//act
+		this.tipCalcStartsAllClear.setEachGroupPays(9000.0);
+		
+		//check postconditions
+		assertEquals(expectedBillAmount, this.tipCalcStartsAllClear.getBillAmount(),DOUBLE_DELTA);
+		assertEquals(expectedTipPercent, this.tipCalcStartsAllClear.getTipPercent(),DOUBLE_DELTA);
+		assertEquals(expectedEachGroupPays, this.tipCalcStartsAllClear.getGroupPaysAmount(),DOUBLE_DELTA);		
+	}
+	
 
 }

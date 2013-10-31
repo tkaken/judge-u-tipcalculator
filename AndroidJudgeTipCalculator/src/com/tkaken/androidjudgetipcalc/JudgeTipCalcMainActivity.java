@@ -373,12 +373,13 @@ public class JudgeTipCalcMainActivity extends Activity
 
 				setUserRequestedDataUpdate(false);
 				updateTipPercentOnScreen();
-				setUserRequestedDataUpdate(true);
 
 
 				updateTotalAmountOnScreen();
 				updateGroupPaysAmountOnScreen();
 				updateJudgementMsg();
+				
+				setUserRequestedDataUpdate(true);
 			}
 
 		}
