@@ -34,34 +34,9 @@ public class TipCalcState
 		return this.billAmount;
 	}
 
-	public double getTipPercent()
-	{
-		return this.tipPercent;
-	}
-
-	public double getTotalAmount()
-	{
-		return this.totalAmount;
-	}
-
-	public double getTipAmount()
-	{
-		return this.tipAmount;
-	}
-
-	public int getNumOfGroups()
-	{
-		return this.numOfGroups;
-	}
-
-	public double getGroupPaysAmount()
-	{
-		return this.groupPaysAmount;
-	}
-
 	public void setBillAmount(double inValue)
 	{
-        inValue = CalcMath.getDoubleBelowCeiling(inValue, MAX_BILL_AMOUNT);
+	    inValue = CalcMath.getDoubleBelowCeiling(inValue, MAX_BILL_AMOUNT);
 		
 		if (CalcMath.isDoublePositive(inValue))
 		{
@@ -78,9 +53,19 @@ public class TipCalcState
 		calculateGroupPaysAmount();		
 	}
 
+	public double getTipPercent()
+	{
+		return this.tipPercent;
+	}
+
+	public int getTipPercentAsInt()
+	{
+		return (int) Math.round(this.tipPercent * 100);
+	}
+
 	public void setTipPercent(double inValue)
 	{
-        inValue = CalcMath.getDoubleBelowCeiling(inValue, MAX_TIP_PERCENT);
+	    inValue = CalcMath.getDoubleBelowCeiling(inValue, MAX_TIP_PERCENT);
 		
 		if (CalcMath.isDoublePositive(inValue))
 		{
@@ -90,19 +75,56 @@ public class TipCalcState
 		{
 			this.tipPercent = 0.0;
 		}
-
+	
 		this.tipAmount = this.billAmount * this.tipPercent;
 		
-        
+	    
 		calculateTotalAmount();		
 		calculateGroupPaysAmount();	
 	}
 
+	public double getTotalAmount()
+	{
+		return this.totalAmount;
+	}
+
+	public void setTotalAmount(double inTotalAmount)
+	{
+		totalAmount = inTotalAmount;
+		
+		if ( totalAmountForcesTipPercentOverMax(totalAmount) )
+		{
+			totalAmount = billAmount + (billAmount*MAX_TIP_PERCENT);
+		}
+		
+		totalAmount = CalcMath.getDoubleBelowCeiling(totalAmount, MAX_TOTAL_AMOUNT);
+	    
+		if (CalcMath.compareDouble(totalAmount, billAmount) < 0) 
+		{
+			totalAmount = billAmount;
+		}
+	
+		calculateTipAmount();
+		calculateTipPercent();
+		calculateGroupPaysAmount();
+	}
+
+	public double getTipAmount()
+	{
+		return this.tipAmount;
+	}
+
 	public void setTipAmount(double inValue)
 	{
-        inValue = CalcMath.getDoubleBelowCeiling(inValue, MAX_TIP_AMOUNT);
-
-        this.tipAmount = inValue;
+		tipAmount = inValue;
+		
+		if ( tipAmountForcesTipPercentOverMax(tipAmount) )
+		{
+			tipAmount = billAmount*MAX_TIP_PERCENT;
+		}
+		
+		tipAmount = CalcMath.getDoubleBelowCeiling(tipAmount, MAX_TIP_AMOUNT);
+	
 		
 		calculateTipPercent();
 		
@@ -110,23 +132,9 @@ public class TipCalcState
 		calculateGroupPaysAmount();
 	}
 
-	private void calculateTipPercent()
+	public int getNumOfGroups()
 	{
-		if (!CalcMath.isDoublePositive(billAmount) ||
-			!CalcMath.isDoublePositive(tipAmount))
-		{
-			this.tipAmount = 0.0;
-			this.tipPercent = 0.0;
-		}
-		else
-		{
-		   this.tipPercent = this.tipAmount / this.billAmount;
-		}
-	}
-
-	private void calculateTotalAmount()
-	{
-		this.totalAmount = this.billAmount + this.tipAmount;
+		return this.numOfGroups;
 	}
 
 	public void setNumOfGroups(int inValue)
@@ -149,63 +157,10 @@ public class TipCalcState
 		
 	}
 
-	private void calculateGroupPaysAmount()
+	public double getGroupPaysAmount()
 	{
-		this.groupPaysAmount = this.totalAmount / this.numOfGroups;
+		return this.groupPaysAmount;
 	}
-
-
-	public int getTipPercentAsInt()
-	{
-		return (int) Math.round(this.tipPercent * 100);
-	}
-
-	public void bumpUpTipPercent()
-	{
-		int tipAsInt =  CalcMath.roundUp(getTipPercentAsInt(), TIP_BUMP_AMOUNT);
-		setTipPercent( tipAsInt * .01);	
-	}
-
-	public void bumpDownTipPercent()
-	{
-		int tipAsInt =  CalcMath.roundDown(getTipPercentAsInt(), TIP_BUMP_AMOUNT);
-		setTipPercent( tipAsInt * .01);	
-	}
-
-	public void setTotalAmount(double inTotalAmount)
-	{
-		totalAmount = inTotalAmount;
-		
-		if ( totalAmountForcesTipPercentOverMax(totalAmount) )
-		{
-			totalAmount = billAmount + (billAmount*MAX_TIP_PERCENT);
-		}
-		
-		totalAmount = CalcMath.getDoubleBelowCeiling(totalAmount, MAX_TOTAL_AMOUNT);
-        
-		if (CalcMath.compareDouble(totalAmount, billAmount) < 0) 
-		{
-			totalAmount = billAmount;
-		}
-
-		calculateTipAmount();
-		calculateTipPercent();
-		calculateGroupPaysAmount();
-	}
-
-	private boolean totalAmountForcesTipPercentOverMax(double proposedTotal)
-	{
-		if (BigDecimal.valueOf(billAmount).compareTo(BigDecimal.ZERO) == 0) return false;
-		
-		double newTipPercent = (proposedTotal-billAmount)/billAmount;
-		return CalcMath.compareDouble(newTipPercent, MAX_TIP_PERCENT) > 0;
-	}
-
-	private void calculateTipAmount()
-	{
-		tipAmount = totalAmount - billAmount;
-	}
-
 
 	public void setEachGroupPays(double inGroupAmount)
 	{
@@ -234,6 +189,64 @@ public class TipCalcState
 		calculateTipAmount();
 		calculateTipPercent();
 		
+	}
+
+	public void bumpUpTipPercent()
+	{
+		int tipAsInt =  CalcMath.roundUp(getTipPercentAsInt(), TIP_BUMP_AMOUNT);
+		setTipPercent( tipAsInt * .01);	
+	}
+
+	public void bumpDownTipPercent()
+	{
+		int tipAsInt =  CalcMath.roundDown(getTipPercentAsInt(), TIP_BUMP_AMOUNT);
+		setTipPercent( tipAsInt * .01);	
+	}
+
+	private void calculateTipPercent()
+	{
+		if (!CalcMath.isDoublePositive(billAmount) ||
+			!CalcMath.isDoublePositive(tipAmount))
+		{
+			this.tipAmount = 0.0;
+			this.tipPercent = 0.0;
+		}
+		else
+		{
+		   this.tipPercent = this.tipAmount / this.billAmount;
+		}
+	}
+
+	private void calculateTipAmount()
+	{
+		tipAmount = totalAmount - billAmount;
+	}
+
+	private void calculateTotalAmount()
+	{
+		this.totalAmount = this.billAmount + this.tipAmount;
+	}
+
+	private void calculateGroupPaysAmount()
+	{
+		this.groupPaysAmount = this.totalAmount / this.numOfGroups;
+	}
+
+
+	private boolean totalAmountForcesTipPercentOverMax(double proposedTotal)
+	{
+		if (BigDecimal.valueOf(billAmount).compareTo(BigDecimal.ZERO) == 0) return false;
+		
+		double newTipPercent = (proposedTotal-billAmount)/billAmount;
+		return CalcMath.compareDouble(newTipPercent, MAX_TIP_PERCENT) > 0;
+	}
+
+	private boolean tipAmountForcesTipPercentOverMax(double proposedTipAmount)
+	{
+		if (BigDecimal.valueOf(billAmount).compareTo(BigDecimal.ZERO) == 0) return false;
+		
+		double newTipPercent = (proposedTipAmount/billAmount);
+		return CalcMath.compareDouble(newTipPercent, MAX_TIP_PERCENT) > 0;
 	}
 
 

@@ -617,6 +617,24 @@ public class TipCalcTests
 	}
 	
 	
+	@Test
+	public void tipAmountCausesTipPercentGreaterThanMax()
+	{
+		//set preconditions
+		double expectedBillAmount = 4.0;
+		double expectedTipAmount = 4.0;
+		double expectedTipPercent = MAX_TIP_PERCENT;
+		this.tipCalcStartsAllClear.setBillAmount(expectedBillAmount);
+
+		//act
+		this.tipCalcStartsAllClear.setTipAmount(5.0);
+		
+		//check postconditions
+		assertEquals(expectedBillAmount, this.tipCalcStartsAllClear.getBillAmount(),DOUBLE_DELTA);
+		assertEquals(expectedTipPercent, this.tipCalcStartsAllClear.getTipPercent(),DOUBLE_DELTA);
+		assertEquals(expectedTipAmount, this.tipCalcStartsAllClear.getTipAmount(),DOUBLE_DELTA);		
+	}
+	
 
 	@Test
 	public void setPositiveNumberInGroupWhenNonZeroTotalBill()
