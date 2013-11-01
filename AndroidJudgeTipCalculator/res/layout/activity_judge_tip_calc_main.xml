@@ -17,7 +17,7 @@
             android:maxLength="7"
             android:selectAllOnFocus="true"
             android:textAppearance="?android:attr/textAppearanceMedium" >
-                        <requestFocus />
+
         </EditText>
                         
 

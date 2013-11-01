@@ -23,6 +23,10 @@ import com.tkaken.tipRules.JudgementValues;
 import com.tkaken.tipRules.TipJudgementRules;
 import com.tkaken.tipRules.TipJudgementRulesEngineFactory;
 
+/**
+ * @author Ken
+ *
+ */
 public class JudgeTipCalcMainActivity extends Activity
 {
 	private boolean userRequestedDataUpdate;
@@ -117,7 +121,7 @@ public class JudgeTipCalcMainActivity extends Activity
 
 	private void initScreenFields()
 	{
-		billAmount_ET = (EditText) findViewById(R.id.billAmountEditText);
+		billAmount_ET = (EditText) findViewById(R.id.billAmountEditText);		
 		tipPercent_ET = (EditText) findViewById(R.id.tipPercenttEditText);		
 		tipAmount_ET = (EditText) findViewById(R.id.tipAmountEditText);
 		totalAmount_ET = (EditText) findViewById(R.id.totalAmountEditText);		
@@ -274,14 +278,25 @@ public class JudgeTipCalcMainActivity extends Activity
 		{
 			if (!hasFocus)
 			{
+				setUpFirstFieldsFocusState(billAmount_ET);
+
 				setUserRequestedDataUpdate(false);
 				updateDecimalTextView(billAmount_ET, tipCalcState.getBillAmount());
 				setUserRequestedDataUpdate(true);
 			}
 		}
+
 	}; 
 	
 	
+	/**
+	 * The first EditText field that gets focus needs to has its onFocus function call this.
+	 * Necessary since requestFocus does not use select on focus at startup.
+	 */
+	private void setUpFirstFieldsFocusState(EditText firstFocusField)
+	{
+		firstFocusField.selectAll();
+	}
 	
 	
 	private TextWatcher tipPercentListener = new TextWatcher()
