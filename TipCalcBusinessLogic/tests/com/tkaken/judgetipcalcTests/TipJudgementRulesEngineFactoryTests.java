@@ -1,10 +1,12 @@
 package com.tkaken.judgetipcalcTests;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 
-import org.hamcrest.core.IsNot;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +15,6 @@ import com.tkaken.tipRules.Judgement;
 import com.tkaken.tipRules.JudgementValues;
 import com.tkaken.tipRules.TipJudgementRules;
 import com.tkaken.tipRules.TipJudgementRulesEngineFactory;
-
-import static org.hamcrest.CoreMatchers.*;
 
 public class TipJudgementRulesEngineFactoryTests
 {

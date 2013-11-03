@@ -72,8 +72,7 @@ public class JudgeTipCalcMainActivity extends Activity
 		outState.putDouble(TOTAL_AMOUNT_KEY, this.tipCalcState.getTotalAmount() );
 		outState.putDouble(NUM_OF_GROUPS_KEY, this.tipCalcState.getNumOfGroups() );
 		outState.putDouble(GROUP_PAYS_KEY, this.tipCalcState.getGroupPaysAmount() );
-		//TODO put call to rules engine here
-		//outState.putString(JUDGEMENT_MSG_KEY, judgementMessage_TV.getText().toString() );
+
 	}
 
 	
@@ -199,9 +198,7 @@ public class JudgeTipCalcMainActivity extends Activity
 		this.tipCalcState.setBillAmount(savedInstanceState.getDouble(BILL_AMOUNT_KEY));
 		this.tipCalcState.setTipPercent(savedInstanceState.getDouble(TIP_PERCENT_KEY));
 		this.tipCalcState.setNumOfGroups(savedInstanceState.getInt(NUM_OF_GROUPS_KEY));
-		
-		//TODO use rules engine here
-		//this.tipCalcState.setJudgementMessage(savedInstanceState.getString(JUDGEMENT_MSG_KEY));
+		updateJudgementMsg();		
 	}
 
 	private OnClickListener bumpUpButtonListener = new OnClickListener()
@@ -655,47 +652,7 @@ public class JudgeTipCalcMainActivity extends Activity
 	}
 
 
-	/*		
-	protected void processBillAmountUpdate()
-	{
-		if (0.0 == this.billAmount)
-		{
-			
-		}
-		
-	}
 
-
-	private void updateTipPercent()
-	{
-		if (0.0 == billAmount)
-		{
-		  this.tipPercent = Double.NaN;
-		}
-		else
-		{
-			this.tipPercent = this.totalAmount / this.billAmount;
-		}
-		
-		tipPercent_ET.setText(String.format("%.02f", tipPercent));
-		
-	}
-		
-	private void updateTotalAmount()
-	{
-		totalAmount = billAmount + tipAmount;
-		totalAmount_ET.setText(String.format("%.02f", totalAmount));
-	}
-
-	private void updateJudgementMsg()
-	{
-		judgementMessage = "Thou art a cheap douchebag";
-		TextFormat textFormat = this.tipJudger.getFormatColors(tipAmount);
-		this.judgementMessage_TV.setBackgroundColor(textFormat.getFillColor());
-		this.judgementMessage_TV.setTextColor(textFormat.getTextColor());
-	}
-
-*/
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{

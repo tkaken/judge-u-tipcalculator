@@ -1,7 +1,5 @@
 package com.tkaken.tipRules;
 
-import java.util.List;
-
 import com.tkaken.utilities.Randomizer;
 
 public class JudgementFactory
