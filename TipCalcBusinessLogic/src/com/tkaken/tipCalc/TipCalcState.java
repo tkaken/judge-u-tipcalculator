@@ -90,7 +90,16 @@ public class TipCalcState
 
 	public void setTotalAmount(double inTotalAmount)
 	{
-		totalAmount = inTotalAmount;
+		
+		if (!CalcMath.isDoublePositive(billAmount))
+		{
+		    totalAmount = 0.0;
+		}
+		else
+		{
+			totalAmount = inTotalAmount;			
+		}
+		
 		
 		if ( totalAmountForcesTipPercentOverMax(totalAmount) )
 		{

@@ -770,9 +770,9 @@ public class TipCalcTests
 		double expectedBillAmount = 0.0;
 		double expectedTipAmount = 0.0;
 		int expectedTipPercent = 0;
-
+        
 		//act
-		this.tipCalcStartsAllClear.setTotalAmount(expectedTotalAmount);
+		this.tipCalcStartsAllClear.setTotalAmount(40.0);
 		
 		//check postconditions
 		assertEquals(expectedBillAmount, this.tipCalcStartsAllClear.getBillAmount(),DOUBLE_DELTA);
@@ -813,10 +813,11 @@ public class TipCalcTests
 	public void setTotalAmountWhenTooHigh()
 	{
 		//set preconditions
-		double expectedTotalAmount = MAX_TOTAL_AMOUNT ;
+		double expectedTotalAmount = MAX_TOTAL_AMOUNT;
+		tipCalcStartsAllClear.setBillAmount(MAX_BILL_AMOUNT);
 
 		//act
-		this.tipCalcStartsAllClear.setTotalAmount(MAX_TOTAL_AMOUNT + .01);
+		this.tipCalcStartsAllClear.setTotalAmount(MAX_TOTAL_AMOUNT + 1.00);
 		
 		//check postconditions
 		assertEquals(expectedTotalAmount, this.tipCalcStartsAllClear.getTotalAmount(),DOUBLE_DELTA);
@@ -828,6 +829,7 @@ public class TipCalcTests
 	{
 		//set preconditions
 		double expectedTotalAmount = MAX_TOTAL_AMOUNT ;
+		tipCalcStartsAllClear.setBillAmount(MAX_BILL_AMOUNT);
 
 		//act
 		this.tipCalcStartsAllClear.setTotalAmount(MAX_TOTAL_AMOUNT);
