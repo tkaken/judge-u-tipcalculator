@@ -17,7 +17,7 @@
             android:name="com.tkaken.androidjudgetipcalc.JudgeTipCalcMainActivity"
             android:label="@string/app_name"             
             android:screenOrientation="sensorPortrait" 
-            android:windowSoftInputMode="stateVisible|adjustPan">
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

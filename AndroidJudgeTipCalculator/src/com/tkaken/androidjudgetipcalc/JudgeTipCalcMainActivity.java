@@ -4,14 +4,19 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableRow;
@@ -120,16 +125,29 @@ public class JudgeTipCalcMainActivity extends Activity
 
 	private void initScreenFields()
 	{
-		billAmount_ET = (EditText) findViewById(R.id.billAmountEditText);		
+		billAmount_ET = (EditText) findViewById(R.id.billAmountEditText);
 		tipPercent_ET = (EditText) findViewById(R.id.tipPercenttEditText);		
 		tipAmount_ET = (EditText) findViewById(R.id.tipAmountEditText);
-		totalAmount_ET = (EditText) findViewById(R.id.totalAmountEditText);		
-		numberOfGroups_ET = (EditText) findViewById(R.id.numPeopleEditText);		
+		totalAmount_ET = (EditText) findViewById(R.id.totalAmountEditText);
+		
+
+		numberOfGroups_ET = (EditText) findViewById(R.id.numPeopleEditText);
+		//numberOfGroups_ET.setInputType(InputType.TYPE_NULL);
+		//numberOfGroups_ET.setOnTouchListener(otl);
+
+		
 		groupPaysAmount_ET = (EditText) findViewById(R.id.perPersonAmountEditText);
 		judgementMessage_TV = (TextView) findViewById(R.id.judgementTextView);
 		judgementMessage_TR = (TableRow) findViewById(R.id.messageRow);
 	}
 
+	private OnTouchListener otl = new OnTouchListener() {
+	@Override
+	public boolean onTouch(View v, MotionEvent event)
+	{
+		return true; //consumes the onTouch event
+	}
+	};		
 
 	private TipJudgementRules getTipJudgementRules()
 	{
