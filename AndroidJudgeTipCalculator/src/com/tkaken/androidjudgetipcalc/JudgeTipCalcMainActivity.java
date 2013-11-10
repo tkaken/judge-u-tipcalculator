@@ -114,36 +114,29 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		
 		setUserRequestedDataUpdate(true);
 		
+		createKeypadFragment();
+	
+		
+	}
+
+
+	private void createKeypadFragment()
+	{
 		FragmentManager fragManager = getSupportFragmentManager();
 		
-		// Check if the FragmentManager knows about the Fragment 
-		// id we refer to
-		
+        //TODO What if more than one fragment?  Need to check for a particular one? Use a tag name?
 		Fragment theFragment = fragManager.findFragmentById(R.id.layoutContainer);
-		
-		// Check if the Fragment was found
 		
 		if (null == theFragment)
 		{
-			
-			// If the Fragment wasn't found then we must create it
-			
+						
 			theFragment = new KeypadFragment();
-			
-			// Creates and commits the Fragment transaction
-			// Fragment transactions add, attach, detach, replace
-			// and remove Fragments.
-			
-			// add() gets the location to place the Fragment into and
-			// the Fragment itself.
 			
 			fragManager.beginTransaction()
 				.add(R.id.layoutContainer, theFragment)
 				.commit();
 			
 		}
-	
-		
 	}
 
 
