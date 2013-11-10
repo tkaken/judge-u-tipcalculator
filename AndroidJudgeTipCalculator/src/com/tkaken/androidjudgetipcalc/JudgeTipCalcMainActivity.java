@@ -114,26 +114,38 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		
 		setUserRequestedDataUpdate(true);
 		
-		createKeypadFragment();
+		createFragment(KeypadFragment.class.getName());
 	
 		
 	}
 
 
-	private void createKeypadFragment()
+	//TODO consider doing an extract class for a fragment utility
+	private void createFragment(String fragmentClassName)
 	{
 		FragmentManager fragManager = getSupportFragmentManager();
 		
-        //TODO What if more than one fragment?  Need to check for a particular one? Use a tag name?
-		Fragment theFragment = fragManager.findFragmentByTag(KeypadFragment.tag);
+		Fragment theFragment = fragManager.findFragmentByTag(fragmentClassName);
 		
 		if (null == theFragment)
 		{
 						
-			theFragment = new KeypadFragment();
+			try
+			{
+				theFragment = (Fragment) Class.forName(fragmentClassName).newInstance();
+			} catch (InstantiationException e)
+			{
+				e.printStackTrace();
+			} catch (IllegalAccessException e)
+			{
+				e.printStackTrace();
+			} catch (ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			}
 			
 			fragManager.beginTransaction()
-				.add(R.id.layoutContainer, theFragment, KeypadFragment.tag)
+				.add(R.id.layoutContainer, theFragment, fragmentClassName)
 				.commit();
 			
 		}
