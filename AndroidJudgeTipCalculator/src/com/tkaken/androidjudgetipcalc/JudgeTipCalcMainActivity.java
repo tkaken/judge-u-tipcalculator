@@ -125,7 +125,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		FragmentManager fragManager = getSupportFragmentManager();
 		
         //TODO What if more than one fragment?  Need to check for a particular one? Use a tag name?
-		Fragment theFragment = fragManager.findFragmentById(R.id.layoutContainer);
+		Fragment theFragment = fragManager.findFragmentByTag(KeypadFragment.tag);
 		
 		if (null == theFragment)
 		{
@@ -133,7 +133,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			theFragment = new KeypadFragment();
 			
 			fragManager.beginTransaction()
-				.add(R.id.layoutContainer, theFragment)
+				.add(R.id.layoutContainer, theFragment, KeypadFragment.tag)
 				.commit();
 			
 		}

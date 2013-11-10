@@ -9,6 +9,8 @@ import android.widget.Button;
 
 public class KeypadFragment extends Fragment
 {
+	public final static String tag = "KeypadFragment";
+	
 	//Buttons
 	private Button one_btn;
 	private Button two_btn;
