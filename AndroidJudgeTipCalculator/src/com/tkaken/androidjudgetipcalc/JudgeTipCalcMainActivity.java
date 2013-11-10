@@ -3,10 +3,12 @@ package com.tkaken.androidjudgetipcalc;
 import java.util.Arrays;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -15,7 +17,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +33,7 @@ import com.tkaken.tipRules.TipJudgementRulesEngineFactory;
  * @author Ken
  *
  */
-public class JudgeTipCalcMainActivity extends Activity
+public class JudgeTipCalcMainActivity extends FragmentActivity
 {
 	private boolean userRequestedDataUpdate;
 
@@ -113,6 +114,36 @@ public class JudgeTipCalcMainActivity extends Activity
 		
 		setUserRequestedDataUpdate(true);
 		
+		FragmentManager fragManager = getSupportFragmentManager();
+		
+		// Check if the FragmentManager knows about the Fragment 
+		// id we refer to
+		
+		Fragment theFragment = fragManager.findFragmentById(R.id.layoutContainer);
+		
+		// Check if the Fragment was found
+		
+		if (null == theFragment)
+		{
+			
+			// If the Fragment wasn't found then we must create it
+			
+			theFragment = new KeypadFragment();
+			
+			// Creates and commits the Fragment transaction
+			// Fragment transactions add, attach, detach, replace
+			// and remove Fragments.
+			
+			// add() gets the location to place the Fragment into and
+			// the Fragment itself.
+			
+			fragManager.beginTransaction()
+				.add(R.id.layoutContainer, theFragment)
+				.commit();
+			
+		}
+	
+		
 	}
 
 
@@ -135,6 +166,7 @@ public class JudgeTipCalcMainActivity extends Activity
 		numberOfGroups_ET.setOnTouchListener(otl);
 		
 		groupPaysAmount_ET = (EditText) findViewById(R.id.perPersonAmountEditText);
+		
 		judgementMessage_TV = (TextView) findViewById(R.id.judgementTextView);
 		judgementMessage_TR = (TableRow) findViewById(R.id.messageRow);
 	}
