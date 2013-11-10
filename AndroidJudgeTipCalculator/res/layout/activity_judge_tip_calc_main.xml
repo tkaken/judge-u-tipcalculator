@@ -102,10 +102,11 @@
             android:id="@+id/numPeopleTextView"
             android:text="@string/group_number_text_view" />
 
-        <EditText
+        <EditText 
             android:id="@+id/numPeopleEditText"
             android:ems="5"
-            android:maxLength="2" >
+            android:maxLength="2"             
+            android:selectAllOnFocus="true">
 
 
         </EditText>

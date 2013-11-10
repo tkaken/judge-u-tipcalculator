@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -16,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -132,22 +132,26 @@ public class JudgeTipCalcMainActivity extends Activity
 		
 
 		numberOfGroups_ET = (EditText) findViewById(R.id.numPeopleEditText);
-		//numberOfGroups_ET.setInputType(InputType.TYPE_NULL);
-		//numberOfGroups_ET.setOnTouchListener(otl);
-
+		numberOfGroups_ET.setOnTouchListener(otl);
 		
 		groupPaysAmount_ET = (EditText) findViewById(R.id.perPersonAmountEditText);
 		judgementMessage_TV = (TextView) findViewById(R.id.judgementTextView);
 		judgementMessage_TR = (TableRow) findViewById(R.id.messageRow);
 	}
 
-	private OnTouchListener otl = new OnTouchListener() {
-	@Override
-	public boolean onTouch(View v, MotionEvent event)
+	private OnTouchListener otl = new OnTouchListener()
 	{
-		return true; //consumes the onTouch event
-	}
-	};		
+		@Override
+		public boolean onTouch(View v, MotionEvent event)
+		{
+			v.requestFocus();
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+			imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+			return true; // consumes the onTouch event
+		}
+	};	
 
 	private TipJudgementRules getTipJudgementRules()
 	{
