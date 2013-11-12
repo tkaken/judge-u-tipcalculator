@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -46,7 +47,6 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 	private static String GROUP_PAYS_KEY = "GROUP_PAYS";
 	private static String JUDGEMENT_MSG_KEY = "JUDGEMENT_MSG";
 
-	
 
 	// hold text data for data entry fields
 	private EditText billAmount_ET;
