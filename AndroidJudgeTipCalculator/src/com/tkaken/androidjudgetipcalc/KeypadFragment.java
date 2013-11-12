@@ -3,6 +3,7 @@ package com.tkaken.androidjudgetipcalc;
 import android.app.Activity;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
+import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -38,16 +39,85 @@ public class KeypadFragment extends Fragment
 	{
 		super.onActivityCreated(savedInstanceState);
 		
+		initializeKeyboard();		
+
+	}
+
+	private void initializeKeyboard()
+	{
 		Activity mainActivity = getActivity();
 		
 		Keyboard mKeyboard= new Keyboard(mainActivity, R.xml.fun_number_keypad);
 		
-	    KeyboardView mKeyboardView = (KeyboardView) mainActivity.findViewById(R.id.keyboardview);
+		keyboardView = (KeyboardView) mainActivity.findViewById(R.id.keyboardview);
 
 	    // Attach the keyboard to the view
-	    mKeyboardView.setKeyboard( mKeyboard );		
-
+		keyboardView.setKeyboard( mKeyboard );
+		
+		keyboardView.setPreviewEnabled(false);
+		
+		keyboardView.setOnKeyboardActionListener(onKeyboardActionListener);
 	}
 	
+	private OnKeyboardActionListener onKeyboardActionListener = new OnKeyboardActionListener()	
+	{
+
+		@Override
+		public void onKey(int primaryCode, int[] keyCodes)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onPress(int primaryCode)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onRelease(int primaryCode)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onText(CharSequence text)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void swipeDown()
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void swipeLeft()
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void swipeRight()
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void swipeUp()
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
 
 }
