@@ -6,9 +6,11 @@ import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 public class KeypadFragment extends Fragment
 {
@@ -65,8 +67,31 @@ public class KeypadFragment extends Fragment
 		@Override
 		public void onKey(int primaryCode, int[] keyCodes)
 		{
-			// TODO Auto-generated method stub
+			Activity mainActivity = getActivity();
+
+			View focusCurrent = mainActivity.getWindow().getCurrentFocus();
 			
+			if( null==focusCurrent || focusCurrent.getClass()!=EditText.class ) return;
+			
+			EditText edittext = (EditText) focusCurrent;
+			if (edittext.hasSelection())
+			{
+				edittext.setSelected(false);
+				edittext.setText("");
+			}
+			
+			
+			Editable editable = edittext.getText();
+			int start = edittext.getSelectionStart();	
+			
+			if( primaryCode==Keyboard.KEYCODE_DELETE ) 
+			{
+		        if( editable!=null && start>0 ) editable.delete(start - 1, start);
+			}
+			else
+			{
+		        editable.insert(start, Character.toString((char) primaryCode));
+			}
 		}
 
 		@Override

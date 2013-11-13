@@ -4,8 +4,9 @@
     android:keyHeight="10%p" >
 
     <Row>
-        <Key android:codes="49"    android:keyLabel="1" android:keyEdgeFlags="left" />
-        <Key android:codes="50"    android:keyLabel="2" />
-    </Row>
+        <Key android:keyLabel="1" android:keyEdgeFlags="left" />
+        <Key android:keyLabel="2" />
+        <Key android:codes="-5" android:keyLabel="D" />
+        </Row>
 
 </Keyboard>

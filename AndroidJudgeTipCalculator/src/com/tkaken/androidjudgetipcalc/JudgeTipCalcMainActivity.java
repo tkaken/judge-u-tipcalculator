@@ -3,6 +3,7 @@ package com.tkaken.androidjudgetipcalc;
 import java.util.Arrays;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.inputmethodservice.KeyboardView;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
+import android.text.Layout;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -168,6 +170,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		
 
 		numberOfGroups_ET = (EditText) findViewById(R.id.numPeopleEditText);
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		numberOfGroups_ET.setOnTouchListener(otl);
 		
 		groupPaysAmount_ET = (EditText) findViewById(R.id.perPersonAmountEditText);
@@ -181,10 +184,37 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		@Override
 		public boolean onTouch(View v, MotionEvent event)
 		{
-			v.requestFocus();
-			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			EditText editText = (EditText) v;
 
-			imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+
+			View focusCurrent = getWindow().getCurrentFocus();
+
+			if (editText.equals(focusCurrent))
+			{
+				switch (event.getAction())
+				{
+				case MotionEvent.ACTION_DOWN:
+										
+					Layout layout = editText.getLayout();
+					float x = event.getX() + editText.getScrollX();
+					int offset = layout.getOffsetForHorizontal(0, x);
+					if (offset > 0)
+						if (x > layout.getLineMax(0))
+							editText.setSelection(offset); // touch was at end
+															// of
+															// text
+						else
+							editText.setSelection(offset - 1);
+					break;
+				}
+			} 
+			
+			else
+			{
+				editText.requestFocus();
+			}
 
 			return true; // consumes the onTouch event
 		}
