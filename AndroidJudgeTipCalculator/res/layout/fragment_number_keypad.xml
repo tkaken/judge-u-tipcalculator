@@ -8,13 +8,15 @@
  
    android:orientation="vertical" >
 
-<android.inputmethodservice.KeyboardView
+   <android.inputmethodservice.KeyboardView
         android:id="@+id/keyboardview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
+         android:layout_marginBottom="20dp"
         />    
     
-    
+
+        
 </LinearLayout>
