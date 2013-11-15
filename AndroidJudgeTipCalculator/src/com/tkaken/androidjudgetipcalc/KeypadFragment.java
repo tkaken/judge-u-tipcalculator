@@ -61,37 +61,44 @@ public class KeypadFragment extends Fragment
 		keyboardView.setOnKeyboardActionListener(onKeyboardActionListener);
 	}
 	
+
 	private OnKeyboardActionListener onKeyboardActionListener = new OnKeyboardActionListener()	
 	{
 
 		@Override
 		public void onKey(int primaryCode, int[] keyCodes)
 		{
-			Activity mainActivity = getActivity();
-
-			View focusCurrent = mainActivity.getWindow().getCurrentFocus();
+			if (!isCurrentFocusEditText()) return;
 			
-			if( null==focusCurrent || focusCurrent.getClass()!=EditText.class ) return;
+			EditText editText = (EditText) getCurrentFocus();
 			
-			EditText edittext = (EditText) focusCurrent;
-			if (edittext.hasSelection())
+			if (editText.hasSelection())
 			{
-				edittext.setSelected(false);
-				edittext.setText("");
+				clearEditTextSelection(editText);
 			}
 			
 			
-			Editable editable = edittext.getText();
-			int start = edittext.getSelectionStart();	
+			Editable textToEdit = editText.getText();
+			int positionOfCursorInText = editText.getSelectionStart();	
 			
 			if( primaryCode==Keyboard.KEYCODE_DELETE ) 
 			{
-		        if( editable!=null && start>0 ) editable.delete(start - 1, start);
+		        processDeleteKey(textToEdit, positionOfCursorInText);
 			}
 			else
 			{
-		        editable.insert(start, Character.toString((char) primaryCode));
+		        textToEdit.insert(positionOfCursorInText, getStringFromPrimaryCode(primaryCode));
 			}
+		}
+		
+		private String getStringFromPrimaryCode(int primaryCode)
+		{
+			return Character.toString((char) primaryCode);
+		}
+		
+		private void processDeleteKey(Editable editable, int start)
+		{
+			if( editable!=null && start>0 ) editable.delete(start - 1, start);
 		}
 
 		@Override
@@ -144,5 +151,25 @@ public class KeypadFragment extends Fragment
 		}
 		
 	};
+	
+	//TODO utility class function?
+	private boolean isCurrentFocusEditText()
+	{
+		View currentFocus = getCurrentFocus();		
+		return (currentFocus != null && currentFocus.getClass() == EditText.class);
+	}
+
+	//TODO utility class function?
+	private View getCurrentFocus()
+	{
+		return getActivity().getCurrentFocus();
+	}
+
+	//TODO utility class function?
+	private void clearEditTextSelection(EditText editText)
+	{
+		editText.setSelected(false);
+		editText.setText("");
+	}
 
 }

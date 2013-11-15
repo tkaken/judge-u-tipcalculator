@@ -3,10 +3,8 @@ package com.tkaken.androidjudgetipcalc;
 import java.util.Arrays;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -116,14 +114,14 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		
 		setUserRequestedDataUpdate(true);
 		
-		createFragment(KeypadFragment.class.getName());
+		createFragmentIfDoesNotExist(KeypadFragment.class.getName());
 	
 		
 	}
 
 
 	//TODO consider doing an extract class for a fragment utility
-	private void createFragment(String fragmentClassName)
+	private void createFragmentIfDoesNotExist(String fragmentClassName)
 	{
 		FragmentManager fragManager = getSupportFragmentManager();
 		
@@ -132,25 +130,34 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		if (null == theFragment)
 		{
 						
-			try
-			{
-				theFragment = (Fragment) Class.forName(fragmentClassName).newInstance();
-			} catch (InstantiationException e)
-			{
-				e.printStackTrace();
-			} catch (IllegalAccessException e)
-			{
-				e.printStackTrace();
-			} catch (ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
+			theFragment = createFragment(fragmentClassName);
 			
 			fragManager.beginTransaction()
 				.add(R.id.layoutContainer, theFragment, fragmentClassName)
 				.commit();
 			
 		}
+	}
+
+
+	private Fragment createFragment(String fragmentClassName)
+	{
+		Fragment theFragment = null;
+		
+		try
+		{
+			theFragment = (Fragment) Class.forName(fragmentClassName).newInstance();
+		} catch (InstantiationException e)
+		{
+			e.printStackTrace();
+		} catch (IllegalAccessException e)
+		{
+			e.printStackTrace();
+		} catch (ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		return theFragment;
 	}
 
 
