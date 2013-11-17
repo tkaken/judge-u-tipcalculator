@@ -170,20 +170,26 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 
 	private void initScreenFields()
 	{
-		billAmount_ET = (EditText) findViewById(R.id.billAmountEditText);
-		tipPercent_ET = (EditText) findViewById(R.id.tipPercenttEditText);		
-		tipAmount_ET = (EditText) findViewById(R.id.tipAmountEditText);
-		totalAmount_ET = (EditText) findViewById(R.id.totalAmountEditText);
-		
 
-		numberOfGroups_ET = (EditText) findViewById(R.id.numPeopleEditText);
-		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		numberOfGroups_ET.setOnTouchListener(otl);
-		
-		groupPaysAmount_ET = (EditText) findViewById(R.id.perPersonAmountEditText);
+		billAmount_ET = createEditTextNoKeypad(R.id.billAmountEditText);
+		tipPercent_ET = createEditTextNoKeypad(R.id.tipPercenttEditText);		
+		tipAmount_ET = createEditTextNoKeypad(R.id.tipAmountEditText);
+		totalAmount_ET = createEditTextNoKeypad(R.id.totalAmountEditText);
+		numberOfGroups_ET = createEditTextNoKeypad(R.id.numPeopleEditText);	
+		groupPaysAmount_ET = createEditTextNoKeypad(R.id.perPersonAmountEditText);
 		
 		judgementMessage_TV = (TextView) findViewById(R.id.judgementTextView);
 		judgementMessage_TR = (TableRow) findViewById(R.id.messageRow);
+	}
+	
+	private EditText createEditTextNoKeypad(int viewId)
+	{
+		EditText editText;
+		
+		editText = (EditText) findViewById(viewId);
+		editText.setOnTouchListener(otl);
+		
+		return editText;
 	}
 
 	private OnTouchListener otl = new OnTouchListener()
@@ -204,16 +210,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 				{
 				case MotionEvent.ACTION_DOWN:
 										
-					Layout layout = editText.getLayout();
-					float x = event.getX() + editText.getScrollX();
-					int offset = layout.getOffsetForHorizontal(0, x);
-					if (offset > 0)
-						if (x > layout.getLineMax(0))
-							editText.setSelection(offset); // touch was at end
-															// of
-															// text
-						else
-							editText.setSelection(offset - 1);
+					setInsertionPoint(event, editText);
 					break;
 				}
 			} 
@@ -224,6 +221,20 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			}
 
 			return true; // consumes the onTouch event
+		}
+
+		private void setInsertionPoint(MotionEvent touchPoint, EditText editText)
+		{
+			Layout layout = editText.getLayout();
+			float x = touchPoint.getX() + editText.getScrollX();
+			int offset = layout.getOffsetForHorizontal(0, x);
+			if (offset > 0)
+				if (x > layout.getLineMax(0))
+					editText.setSelection(offset); // touch was at end
+													// of
+													// text
+				else
+					editText.setSelection(offset - 1);
 		}
 	};	
 
