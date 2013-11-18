@@ -3,7 +3,6 @@ package com.tkaken.androidjudgetipcalc;
 import java.util.Arrays;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.inputmethodservice.Keyboard;

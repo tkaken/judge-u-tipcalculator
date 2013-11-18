@@ -15,7 +15,8 @@ import android.widget.EditText;
 public class KeypadFragment extends Fragment
 {
 	
-    private KeyboardView keyboardView;
+    private static final int KEY_CODE_DO_NOTHING = 5000;
+	private KeyboardView keyboardView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,7 @@ public class KeypadFragment extends Fragment
 		{
 			if (!isCurrentFocusEditText()) return;
 			
-			if (primaryCode == 5000) return;
+			if (primaryCode == KEY_CODE_DO_NOTHING) return;
 			
 			EditText editText = (EditText) getCurrentFocus();
 			
