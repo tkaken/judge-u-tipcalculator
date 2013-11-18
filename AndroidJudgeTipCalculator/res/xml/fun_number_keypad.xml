@@ -7,14 +7,15 @@
         <Key android:keyLabel="7"/>
         <Key android:keyLabel="8" />
         <Key android:keyLabel="9" />
-        <Key android:codes="-5" android:keyLabel="del" android:isRepeatable="true" android:keyEdgeFlags="right" />
+        <Key android:codes="-5" android:keyLabel="del" android:isRepeatable="true" />
     </Row>
     
     <Row>
         <Key android:keyLabel="4" />
         <Key android:keyLabel="5" />
         <Key android:keyLabel="6" />
-    </Row>
+        <Key android:codes="5000" />
+        </Row>
     
     <Row>
         <Key android:keyLabel="1" />

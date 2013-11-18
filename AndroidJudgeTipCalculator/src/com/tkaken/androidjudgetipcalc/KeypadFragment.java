@@ -73,6 +73,8 @@ public class KeypadFragment extends Fragment
 		{
 			if (!isCurrentFocusEditText()) return;
 			
+			if (primaryCode == 5000) return;
+			
 			EditText editText = (EditText) getCurrentFocus();
 			
 			if (editText.hasSelection())
