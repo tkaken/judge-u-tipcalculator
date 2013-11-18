@@ -3,8 +3,11 @@ package com.tkaken.androidjudgetipcalc;
 import java.util.Arrays;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -199,8 +202,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		{
 			EditText editText = (EditText) v;
 
-			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-			imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+			disableDefaultKeyboard(editText);
 
 			View focusCurrent = getWindow().getCurrentFocus();
 
@@ -383,15 +385,36 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			if (!hasFocus)
 			{
 				setUpFirstFieldsFocusState(billAmount_ET);
-
+				
 				setUserRequestedDataUpdate(false);
 				updateDecimalTextView(billAmount_ET, tipCalcState.getBillAmount());
 				setUserRequestedDataUpdate(true);
+			}
+			else
+			{
+				attachDecimalNumberKeyboard();
 			}
 		}
 
 	}; 
 	
+
+	private void attachNumberKeyboard()
+	{
+		KeyboardView keyboardView = (KeyboardView) findViewById(R.id.keyboardview);
+		Keyboard mKeyboard = new Keyboard(this, R.xml.fun_number_keypad);		
+		keyboardView.setKeyboard( mKeyboard );
+	}
+	
+
+	private void attachDecimalNumberKeyboard()
+	{
+		KeyboardView keyboardView = (KeyboardView) findViewById(R.id.keyboardview);
+		Keyboard mKeyboard = new Keyboard(this, R.xml.fun_decimal_number_keypad);		
+		keyboardView.setKeyboard( mKeyboard );
+	}
+	
+
 	
 	/**
 	 * The first EditText field that gets focus needs to has its onFocus function call this.
@@ -458,6 +481,10 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 				updateIntTextView(tipPercent_ET, tipCalcState.getTipPercentAsInt());
 				setUserRequestedDataUpdate(true);
 			}
+			else
+			{
+				attachNumberKeyboard();
+			}
 		}
 	}; 
 	
@@ -516,6 +543,10 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 				setUserRequestedDataUpdate(false);
 				updateDecimalTextView(tipAmount_ET, tipCalcState.getTipAmount());
 				setUserRequestedDataUpdate(true);
+			}
+			else
+			{
+				attachDecimalNumberKeyboard();				
 			}
 		}
 	}; 
@@ -576,6 +607,10 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 				updateDecimalTextView(totalAmount_ET, tipCalcState.getTotalAmount());
 				setUserRequestedDataUpdate(true);
 			}
+			else
+			{
+				attachDecimalNumberKeyboard();				
+			}
 		}
 	}; 
 	
@@ -624,9 +659,14 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		{
 			if (!hasFocus)
 			{
+				attachNumberKeyboard();
 				setUserRequestedDataUpdate(false);
 				updateIntTextView(numberOfGroups_ET, tipCalcState.getNumOfGroups());
 				setUserRequestedDataUpdate(true);
+			}
+			else
+			{
+				attachNumberKeyboard();				
 			}
 		}
 	}; 
@@ -684,6 +724,10 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 				setUserRequestedDataUpdate(false);
 				updateDecimalTextView(groupPaysAmount_ET, tipCalcState.getGroupPaysAmount());
 				setUserRequestedDataUpdate(true);
+			}
+			else
+			{
+				attachDecimalNumberKeyboard();				
 			}
 		}
 	}; 
@@ -766,6 +810,13 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.judge_tip_calc_main, menu);
 		return true;
+	}
+
+
+	private void disableDefaultKeyboard(EditText editText)
+	{
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 	}
 
 }

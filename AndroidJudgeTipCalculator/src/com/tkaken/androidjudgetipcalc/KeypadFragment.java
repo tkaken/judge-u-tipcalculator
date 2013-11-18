@@ -49,16 +49,19 @@ public class KeypadFragment extends Fragment
 	{
 		Activity mainActivity = getActivity();
 		
-		Keyboard mKeyboard= new Keyboard(mainActivity, R.xml.fun_number_keypad);
-		
 		keyboardView = (KeyboardView) mainActivity.findViewById(R.id.keyboardview);
 
-	    // Attach the keyboard to the view
-		keyboardView.setKeyboard( mKeyboard );
+		attachKeyboard(mainActivity, keyboardView);
 		
 		keyboardView.setPreviewEnabled(false);
 		
 		keyboardView.setOnKeyboardActionListener(onKeyboardActionListener);
+	}
+
+	private void attachKeyboard(Activity mainActivity, KeyboardView keyboardView)
+	{
+		Keyboard mKeyboard = new Keyboard(mainActivity, R.xml.fun_decimal_number_keypad);		
+		keyboardView.setKeyboard( mKeyboard );
 	}
 	
 
