@@ -185,27 +185,17 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		judgementMessage_TR = (TableRow) findViewById(R.id.messageRow);
 	}
 	
-	private EditText createEditTextNoKeypad(int viewId)
-	{
-		EditText editText;
-		
-		editText = (EditText) findViewById(viewId);
-		editText.setOnTouchListener(otl);
-		
-		return editText;
-	}
-
 	private OnTouchListener otl = new OnTouchListener()
 	{
 		@Override
 		public boolean onTouch(View v, MotionEvent event)
 		{
 			EditText editText = (EditText) v;
-
+	
 			disableDefaultKeyboard(editText);
-
+	
 			View focusCurrent = getWindow().getCurrentFocus();
-
+	
 			if (editText.equals(focusCurrent))
 			{
 				switch (event.getAction())
@@ -221,10 +211,10 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			{
 				editText.requestFocus();
 			}
-
+	
 			return true; // consumes the onTouch event
 		}
-
+	
 		private void setInsertionPoint(MotionEvent touchPoint, EditText editText)
 		{
 			Layout layout = editText.getLayout();
@@ -238,7 +228,69 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 				else
 					editText.setSelection(offset - 1);
 		}
-	};	
+	};
+
+	private EditText createEditTextNoKeypad(int viewId)
+	{
+		EditText editText;
+		
+		editText = (EditText) findViewById(viewId);
+		editText.setOnTouchListener(otl);
+		
+		return editText;
+	}
+
+	private void attachNumberKeyboard()
+	{
+		KeyboardView keyboardView = (KeyboardView) findViewById(R.id.keyboardview);
+		Keyboard mKeyboard = new Keyboard(this, R.xml.fun_number_keypad);		
+		keyboardView.setKeyboard( mKeyboard );
+	}
+
+
+	private void attachKeyboard(EditText editText)
+	{
+		int type = editText.getInputType();
+		
+	   if (isInputTypeDecimalNumber(editText))
+	   {
+		   attachDecimalNumberKeyboard();
+	   }
+	   else if (isInputTypeNumber(editText))
+	   {
+		   attachNumberKeyboard();
+	   }
+	}
+
+
+	private boolean isInputTypeNumber(EditText editText)
+	{
+		return editText.getInputType() == InputType.TYPE_CLASS_NUMBER;
+	}
+
+
+	private boolean isInputTypeDecimalNumber(EditText editText)
+	{
+		return editText.getInputType() == (InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+	}
+
+
+	private void attachDecimalNumberKeyboard()
+	{
+		KeyboardView keyboardView = (KeyboardView) findViewById(R.id.keyboardview);
+		Keyboard mKeyboard = new Keyboard(this, R.xml.fun_decimal_number_keypad);		
+		keyboardView.setKeyboard( mKeyboard );
+	}
+
+
+	/**
+	 * The first EditText field that gets focus needs to has its onFocus function call this.
+	 * Necessary since requestFocus does not use select on focus at startup.
+	 */
+	private void setUpFirstFieldsFocusState(EditText firstFocusField)
+	{
+		firstFocusField.selectAll();
+	}
 
 	private TipJudgementRules getTipJudgementRules()
 	{
@@ -400,60 +452,6 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 	}; 
 	
 
-	private void attachNumberKeyboard()
-	{
-		KeyboardView keyboardView = (KeyboardView) findViewById(R.id.keyboardview);
-		Keyboard mKeyboard = new Keyboard(this, R.xml.fun_number_keypad);		
-		keyboardView.setKeyboard( mKeyboard );
-	}
-	
-	private void attachKeyboard(EditText editText)
-	{
-		int type = editText.getInputType();
-		
-       if (isInputTypeDecimalNumber(editText))
-       {
-    	   attachDecimalNumberKeyboard();
-       }
-       else if (isInputTypeNumber(editText))
-       {
-    	   attachNumberKeyboard();
-       }
-	}
-
-
-	private boolean isInputTypeNumber(EditText editText)
-	{
-		return editText.getInputType() == InputType.TYPE_CLASS_NUMBER;
-	}
-
-
-	private boolean isInputTypeDecimalNumber(EditText editText)
-	{
-		return editText.getInputType() == (InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
-	}
-	
-
-
-	private void attachDecimalNumberKeyboard()
-	{
-		KeyboardView keyboardView = (KeyboardView) findViewById(R.id.keyboardview);
-		Keyboard mKeyboard = new Keyboard(this, R.xml.fun_decimal_number_keypad);		
-		keyboardView.setKeyboard( mKeyboard );
-	}
-	
-
-	
-	/**
-	 * The first EditText field that gets focus needs to has its onFocus function call this.
-	 * Necessary since requestFocus does not use select on focus at startup.
-	 */
-	private void setUpFirstFieldsFocusState(EditText firstFocusField)
-	{
-		firstFocusField.selectAll();
-	}
-	
-	
 	private TextWatcher tipPercentListener = new TextWatcher()
 	{
 
