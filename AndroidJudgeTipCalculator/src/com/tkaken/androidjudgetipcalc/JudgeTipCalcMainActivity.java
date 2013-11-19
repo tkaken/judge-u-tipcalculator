@@ -16,6 +16,7 @@ import android.text.InputType;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -400,30 +401,32 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		public void onTextChanged(CharSequence enteredText, int start,
 				int before, int count)
 		{
-			try
+			if (isUserRequestedDataUpdate())
 			{
-				tipCalcState.setBillAmount(Double.parseDouble(enteredText.toString()));
-			} catch (NumberFormatException e)
-			{
-				tipCalcState.setBillAmount(0.0);
-			}
-			
-			setUserRequestedDataUpdate(false);
-			
-			updateTipAmountOnScreen();			
-			updateTotalAmountOnScreen();
-			updateGroupPaysAmountOnScreen();
-			
-			updateJudgementMsg();
-			
-			setUserRequestedDataUpdate(true);
+				try
+				{
+					tipCalcState.setBillAmount(Double.parseDouble(enteredText.toString()));
+				} catch (NumberFormatException e)
+				{
+					tipCalcState.setBillAmount(0.0);
+				}
 
+				setUserRequestedDataUpdate(false);
+
+				updateTipAmountOnScreen();			
+				updateTotalAmountOnScreen();
+				updateGroupPaysAmountOnScreen();
+
+				updateJudgementMsg();
+
+				setUserRequestedDataUpdate(true);
+			}
 		}
 
 		@Override
 		public void afterTextChanged(Editable s)
 		{
-			
+
 		}
 
 	};
@@ -830,6 +833,12 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 
 
 
+	private void disableDefaultKeyboard(EditText editText)
+	{
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -838,11 +847,41 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		return true;
 	}
 
-
-	private void disableDefaultKeyboard(EditText editText)
-	{
-		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	        case R.id.action_refresh:
+	            tipCalcState.initializeState();
+	            updateAllScreenFields();
+			    setFirstFocusOnFirstField();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 
+
+	private void setFirstFocusOnFirstField()
+	{
+		billAmount_ET.requestFocus();
+		setUpFirstFieldsFocusState(billAmount_ET);
+	}
+
+
+	private void updateAllScreenFields()
+	{
+		setUserRequestedDataUpdate(false);
+		updateBillAmountOnScreen();
+		updateTipPercentOnScreen();			
+		updateTipAmountOnScreen();			
+		updateTotalAmountOnScreen();
+		updateNumGroupsOnScreen();
+		updateGroupPaysAmountOnScreen();
+		
+		updateJudgementMsg();
+		
+		setUserRequestedDataUpdate(true);
+		
+	}
 }

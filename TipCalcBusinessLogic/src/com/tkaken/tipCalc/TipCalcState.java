@@ -25,8 +25,7 @@ public class TipCalcState
 
 	public TipCalcState()
 	{
-		this.numOfGroups = 1;
-		this.tipPercent = .15;
+		initializeState();
 	}
 
 	public double getBillAmount()
@@ -256,6 +255,14 @@ public class TipCalcState
 		
 		double newTipPercent = (proposedTipAmount/billAmount);
 		return CalcMath.compareDouble(newTipPercent, MAX_TIP_PERCENT) > 0;
+	}
+
+
+	public void initializeState()
+	{
+		this.setBillAmount(0.0);
+		this.setTipPercent(.15);
+		this.setNumOfGroups(1);		
 	}
 
 
