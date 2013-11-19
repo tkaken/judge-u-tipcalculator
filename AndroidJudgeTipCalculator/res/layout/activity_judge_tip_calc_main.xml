@@ -105,6 +105,7 @@
             android:id="@+id/numPeopleEditText"
             android:ems="5"
             android:maxLength="2"             
+            android:inputType="number"
             android:selectAllOnFocus="true">
 
 

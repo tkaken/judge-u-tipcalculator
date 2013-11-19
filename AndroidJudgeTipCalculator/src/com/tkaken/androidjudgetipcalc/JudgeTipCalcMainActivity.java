@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -391,7 +392,8 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			}
 			else
 			{
-				attachDecimalNumberKeyboard();
+                //TODO consider refactor, since this is the same for all EditText instances
+				attachKeyboard((EditText) v);
 			}
 		}
 
@@ -405,6 +407,33 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		keyboardView.setKeyboard( mKeyboard );
 	}
 	
+	private void attachKeyboard(EditText editText)
+	{
+		int type = editText.getInputType();
+		
+       if (isInputTypeDecimalNumber(editText))
+       {
+    	   attachDecimalNumberKeyboard();
+       }
+       else if (isInputTypeNumber(editText))
+       {
+    	   attachNumberKeyboard();
+       }
+	}
+
+
+	private boolean isInputTypeNumber(EditText editText)
+	{
+		return editText.getInputType() == InputType.TYPE_CLASS_NUMBER;
+	}
+
+
+	private boolean isInputTypeDecimalNumber(EditText editText)
+	{
+		return editText.getInputType() == (InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+	}
+	
+
 
 	private void attachDecimalNumberKeyboard()
 	{
@@ -482,7 +511,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			}
 			else
 			{
-				attachNumberKeyboard();
+				attachKeyboard((EditText) v);
 			}
 		}
 	}; 
@@ -545,7 +574,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			}
 			else
 			{
-				attachDecimalNumberKeyboard();				
+				attachKeyboard((EditText) v);
 			}
 		}
 	}; 
@@ -608,7 +637,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			}
 			else
 			{
-				attachDecimalNumberKeyboard();				
+				attachKeyboard((EditText) v);
 			}
 		}
 	}; 
@@ -665,7 +694,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			}
 			else
 			{
-				attachNumberKeyboard();				
+				attachKeyboard((EditText)v);				
 			}
 		}
 	}; 
@@ -726,7 +755,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			}
 			else
 			{
-				attachDecimalNumberKeyboard();				
+				attachKeyboard((EditText) v);
 			}
 		}
 	}; 
