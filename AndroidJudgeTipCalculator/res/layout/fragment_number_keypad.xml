@@ -4,6 +4,7 @@
    android:id="@+id/layoutContainer"
    android:layout_width="fill_parent"
    android:layout_height="fill_parent"
+   android:background="@color/background_holo_light"
    android:gravity="bottom"
  
    android:orientation="vertical" >
@@ -14,6 +15,8 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:keyBackground="@drawable/key_backgrounds"
+        android:keyTextColor="@color/black"
         android:layout_marginBottom="40dp"
         />    
     

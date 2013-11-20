@@ -110,28 +110,26 @@ public class KeypadFragment extends Fragment
 		@Override
 		public void onPress(int primaryCode)
 		{
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void onRelease(int primaryCode)
 		{
-			// TODO Auto-generated method stub
+
 			
 		}
 
 		@Override
 		public void onText(CharSequence text)
 		{
-			// TODO Auto-generated method stub
+
 			
 		}
 
 		@Override
 		public void swipeDown()
 		{
-			// TODO Auto-generated method stub
+
 			
 		}
 
