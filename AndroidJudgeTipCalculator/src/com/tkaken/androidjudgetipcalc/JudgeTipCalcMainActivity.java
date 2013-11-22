@@ -4,10 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -40,6 +43,8 @@ import com.tkaken.tipRules.TipJudgementRulesEngineFactory;
  */
 public class JudgeTipCalcMainActivity extends FragmentActivity
 {
+	private static final int RESULT_SETTINGS = 1;
+
 	private boolean userRequestedDataUpdate;
 
 	// look up keys for activity's persistent data
@@ -856,12 +861,43 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 	            updateAllScreenFields();
 			    setFirstFocusOnFirstField();
 	            return true;
+	        
+	        case R.id.action_settings:
+	            Intent settingsIntent = new Intent(this, UserSettingsActivity.class);
+	            startActivityForResult(settingsIntent, RESULT_SETTINGS);
+	            return true;
+	 	        	
+	        	
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
 
+		switch (requestCode)
+		{
+		case RESULT_SETTINGS:
+			getUserSettings();
+			break;
+
+		}
+
+	}
+
+	private void getUserSettings()
+	{
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //TODO Use constants
+		int defaultTipPercentAsInt = Integer.valueOf(sharedPrefs.getString("pref_default_tip", "15"));
+		double defaultTipPercent = defaultTipPercentAsInt * .01;
+		//tipCalcState.setTipPercent(defaultTipPercent);
+	}   
+	
 	private void setFirstFocusOnFirstField()
 	{
 		billAmount_ET.requestFocus();

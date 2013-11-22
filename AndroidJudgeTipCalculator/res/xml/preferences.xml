@@ -3,8 +3,9 @@
     
     <EditTextPreference
         android:key="pref_default_tip"
+        android:inputType="number"
         android:title="@string/pref_default_tip_title"
-        android:summary="@string/pref_default_tip_summ"
+        android:summary="@string/pref_default_tip_summary"
         android:defaultValue="@string/pref_default_tip_value" />
     
 </PreferenceScreen>
