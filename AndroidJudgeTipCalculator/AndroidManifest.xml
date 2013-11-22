@@ -27,7 +27,9 @@
         
         <activity
            android:name=".UserSettingsActivity"
-           android:theme="@android:style/Theme.Black.NoTitleBar" >
+           android:label="Settings"             
+           android:icon="@drawable/ic_2_action_settings"
+            >
           </activity>
      </application>
 

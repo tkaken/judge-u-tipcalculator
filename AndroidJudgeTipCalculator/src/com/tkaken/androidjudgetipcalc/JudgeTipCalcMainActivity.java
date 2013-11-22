@@ -893,6 +893,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         //TODO Use constants
+		//TODO Pick better icon for settings
 		int defaultTipPercentAsInt = Integer.valueOf(sharedPrefs.getString("pref_default_tip", "15"));
 		double defaultTipPercent = defaultTipPercentAsInt * .01;
 		//tipCalcState.setTipPercent(defaultTipPercent);
