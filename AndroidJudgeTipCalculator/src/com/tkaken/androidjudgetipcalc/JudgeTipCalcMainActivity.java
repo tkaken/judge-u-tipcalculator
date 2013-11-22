@@ -100,6 +100,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		this.tipJudger = getTipJudgementRules();
 		
 		this.tipCalcState = new TipCalcState();
+		this.tipCalcState.setTipPercent(getDefaultTip());
 		
 	    initScreenFields();
 		
@@ -890,13 +891,20 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 
 	private void getUserSettings()
 	{
+		double defaultTipPercent = getDefaultTip();
+		tipCalcState.setTipPercent(defaultTipPercent);
+        updateAllScreenFields();
+	}
+
+
+	private double getDefaultTip()
+	{
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         //TODO Use constants
 		//TODO Pick better icon for settings
 		int defaultTipPercentAsInt = Integer.valueOf(sharedPrefs.getString("pref_default_tip", "15"));
-		double defaultTipPercent = defaultTipPercentAsInt * .01;
-		//tipCalcState.setTipPercent(defaultTipPercent);
+		return defaultTipPercentAsInt * .01;
 	}   
 	
 	private void setFirstFocusOnFirstField()
