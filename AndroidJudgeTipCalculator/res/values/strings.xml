@@ -4,6 +4,7 @@
     <string name="app_name">Judge U Tips</string>
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
+    <string name="tip_hist_title">History of tipping</string>
     <string name="bill_amount_text_view"><b>Bill Amount</b></string>
     <string name="tip_percent_text_view"><b>Tip Percent (%)</b></string>
     <string name="tip_percent_hint_text">Be nice</string>

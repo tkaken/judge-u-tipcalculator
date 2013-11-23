@@ -856,22 +856,25 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle presses on the action bar items
-	    switch (item.getItemId()) {
-	        case R.id.action_refresh:
-	            tipCalcState.initializeState();
-	            updateAllScreenFields();
-			    setFirstFocusOnFirstField();
-	            return true;
-	        
-	        case R.id.action_settings:
-	            Intent settingsIntent = new Intent(this, UserSettingsActivity.class);
-	            startActivityForResult(settingsIntent, RESULT_SETTINGS);
-	            return true;
-	 	        	
-	        	
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		switch (item.getItemId())
+		{
+		case R.id.action_refresh:
+			tipCalcState.initializeState();
+			updateAllScreenFields();
+			setFirstFocusOnFirstField();
+			return true;
+
+		case R.id.tipping_history:
+			return true;
+
+		case R.id.action_settings:
+			Intent settingsIntent = new Intent(this, UserSettingsActivity.class);
+			startActivityForResult(settingsIntent, RESULT_SETTINGS);
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override
