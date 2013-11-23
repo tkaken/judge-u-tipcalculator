@@ -234,6 +234,20 @@ public class TipCalcTests
 	}
 
 	
+	@Test
+	public void setDefaultTipPercent()
+	{
+		//set preconditions
+		double expectedTipPercent = .40;
+
+		//act
+		this.tipCalcStartsAllClear.setDefaultTipPercent(expectedTipPercent);
+		
+		//check postconditions
+		assertEquals(expectedTipPercent, this.tipCalcStartsAllClear.getTipPercent(),DOUBLE_DELTA);
+	}
+
+	
 	
 	@Test
 	public void setNonZeroTipPercentWhenNonZeroTotalBill()

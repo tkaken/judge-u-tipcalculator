@@ -22,9 +22,11 @@ public class TipCalcState
 	private double totalAmount;
 	private int numOfGroups;
 	private double groupPaysAmount;
+	private double defaultTipPercent;
 
 	public TipCalcState()
 	{
+		defaultTipPercent = .15;
 		initializeState();
 	}
 
@@ -261,8 +263,15 @@ public class TipCalcState
 	public void initializeState()
 	{
 		this.setBillAmount(0.0);
-		this.setTipPercent(.15);
+		this.setTipPercent(defaultTipPercent);
 		this.setNumOfGroups(1);		
+	}
+	
+
+	public void setDefaultTipPercent(double defaultPercent)
+	{
+		this.defaultTipPercent = defaultPercent;
+		setTipPercent(defaultTipPercent);		
 	}
 
 
