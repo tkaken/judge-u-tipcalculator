@@ -67,8 +67,8 @@
         <item>May all your stools be soft and satisfying!</item>
     </string-array>    
 
-    <string name="pref_default_tip_title">Default tip</string>
-    <string name="pref_default_tip_summary">Default tip value when application starts</string>
+    <string name="pref_default_tip_title">Default tip percentage</string>
+    <string name="pref_default_tip_summary">Set the default tip percentage</string>
     <string name="pref_default_tip_value">15</string>
     
     
