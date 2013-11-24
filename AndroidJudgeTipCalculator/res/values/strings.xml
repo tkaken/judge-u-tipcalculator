@@ -15,8 +15,7 @@
     <string name="judgement_init_text_view">Time to tip!</string>
     <string name="tip_adjust_text_view"><b>Tip adjustment:</b></string>
 
-    <string-array
-        name="cheap_judgements">
+    <string-array name="cheap_judgements">
         <item>Get over yourself, and give up a few bucks!</item>
         <item>You make your mother ashamed!</item>
         <item>Not nice.</item>
@@ -35,22 +34,18 @@
         <item>May God\'s hair find its way into your soup!</item>
         <item>Really?</item>
         <item>You just reserved a seat in the Hades diner!</item>
-        <item>Hit the green button you prick.</item>       
-        <item>You are a cheap bastard!</item>       
-    </string-array>        
-    
-    <string-array
-        name="normal_judgements">
+        <item>Hit the green button you prick.</item>
+        <item>You are a cheap bastard!</item>
+    </string-array>
+    <string-array name="normal_judgements">
         <item>Okay, but you can do better!</item>
         <item>Inch it forward, just a bit!</item>
         <item>Heed the Siren song of the green button!</item>
         <item>Spread a little love for a few bucks more. :)</item>
         <item>Make your mother proud!  Press the green button!</item>
         <item>Give up the buck, get the big smile!</item>
-    </string-array>    
-
-    <string-array
-        name="saint_judgements">
+    </string-array>
+    <string-array name="saint_judgements">
         <item>You are a saint!</item>
         <item>I\'m honored to sit in your pocket.</item>
         <item>You made your mother proud.</item>
@@ -66,14 +61,18 @@
         <item>42</item>
         <item>I love you!</item>
         <item>May all your stools be soft and satisfying!</item>
-    </string-array>    
+    </string-array>
 
     <string name="pref_default_tip_title">Default tip percentage</string>
     <string name="pref_default_tip_summary">Set the default tip percentage</string>
     <string name="pref_default_tip_value">15</string>
     
     
+    <string name="tipping_history_title">A Brief History of Tipping</string>
+    <string name="tip_history_text">Tipping history text goes here.</string>
+    <string name="title_activity_display_scrollable_text">A Brief History of Tipping</string>
+
+    
+    
 
 </resources>
-
-

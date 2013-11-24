@@ -12,12 +12,12 @@
         android:allowBackup="true"
         android:icon="@drawable/judge_u_blue_and_white_72"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"  >
+        android:theme="@style/AppTheme" >
         <activity
             android:name="com.tkaken.androidjudgetipcalc.JudgeTipCalcMainActivity"
-            android:label="@string/app_name"             
-            android:screenOrientation="sensorPortrait" 
-            android:windowSoftInputMode="stateHidden">
+            android:label="@string/app_name"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,11 +26,29 @@
         </activity>
         
         <activity
-           android:name=".UserSettingsActivity"
-           android:label="Settings"             
-           android:icon="@drawable/ic_2_action_settings"
-            >
-          </activity>
-     </application>
+            android:name="com.tkaken.androidjudgetipcalc.UserSettingsActivity"
+            android:icon="@drawable/ic_2_action_settings"
+            android:label="Settings" >
+        </activity>
+        
+        <activity
+            android:name="com.tkaken.androidjudgetipcalc.DisplayScrollableTextActivity"
+            android:label="@string/title_activity_display_scrollable_text"
+            android:parentActivityName="com.tkaken.androidjudgetipcalc.JudgeTipCalcMainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tkaken.androidjudgetipcalc.JudgeTipCalcMainActivity" />
+        </activity>
+        
+        <activity
+            android:name="com.tkaken.DisplayCrollableTextActivity"
+            android:label="@string/title_activity_display_scrollable_text"
+            android:parentActivityName="com.tkaken.androidjudgetipcalc.JudgeTipCalcMainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tkaken.androidjudgetipcalc.JudgeTipCalcMainActivity" />
+        </activity>
+        
+    </application>
 
 </manifest>
