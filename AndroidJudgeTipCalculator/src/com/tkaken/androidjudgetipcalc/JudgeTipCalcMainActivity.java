@@ -45,8 +45,6 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 {
 	private static final int RESULT_SETTINGS = 1;
 
-	public static final String SCROLLABLE_TEXT = "com.tkaken.TEXT_TO_DISPLAY";
-
 	private boolean userRequestedDataUpdate;
 
 	// look up keys for activity's persistent data
@@ -883,9 +881,6 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 	private void displayTippingHistory()
 	{
 		Intent intent = new Intent(this, DisplayScrollableTextActivity.class);
-		
-		String textToDisplay = getResources().getString(R.string.tip_history_text);
-		intent.putExtra(SCROLLABLE_TEXT, textToDisplay);
 		startActivity(intent);		
 	}
 
