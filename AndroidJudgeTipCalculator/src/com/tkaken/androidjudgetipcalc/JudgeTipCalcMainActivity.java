@@ -257,7 +257,6 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 
 	private void attachKeyboard(EditText editText)
 	{
-		int type = editText.getInputType();
 		
 	   if (isInputTypeDecimalNumber(editText))
 	   {
