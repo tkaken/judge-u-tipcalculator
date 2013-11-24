@@ -68,9 +68,13 @@
     <string name="pref_default_tip_value">15</string>
     
     
-    <string name="tipping_history_title">A Brief History of Tipping</string>
-    <string name="tip_history_text">Tipping history text goes here.</string>
     <string name="title_activity_display_scrollable_text">A Brief History of Tipping</string>
+    <string name="tip_history_text">
+        Tipping history text goes here.  I am going to do some typing now, just to see how this shows up on the screen  Will it wrap?
+        What if I go to the next line?  How will that show up?
+        \n\n
+        How about a new paragraph?  This should interesting to see how all that goes, yes?
+    </string>
 
     
     
