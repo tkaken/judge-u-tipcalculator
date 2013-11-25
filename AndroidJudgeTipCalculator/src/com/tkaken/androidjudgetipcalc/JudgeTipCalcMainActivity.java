@@ -858,18 +858,15 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		switch (item.getItemId())
 		{
 		case R.id.action_refresh:
-			tipCalcState.initializeState();
-			updateAllScreenFields();
-			setFirstFocusOnFirstField();
+			performRefreshAction();
 			return true;
 
 		case R.id.tipping_history:
-			displayTippingHistory();
+			performTippingHistoryAction();
 			return true;
 
 		case R.id.action_settings:
-			Intent settingsIntent = new Intent(this, UserSettingsActivity.class);
-			startActivityForResult(settingsIntent, RESULT_SETTINGS);
+			performSettingsAction();
 			return true;
 
 		default:
@@ -877,7 +874,22 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		}
 	}
 
-	private void displayTippingHistory()
+
+	private void performRefreshAction()
+	{
+		tipCalcState.initializeState();
+		updateAllScreenFields();
+		setFirstFocusOnFirstField();
+	}
+
+
+	private void performSettingsAction()
+	{
+		Intent settingsIntent = new Intent(this, UserSettingsActivity.class);
+		startActivityForResult(settingsIntent, RESULT_SETTINGS);
+	}
+
+	private void performTippingHistoryAction()
 	{
 		Intent intent = new Intent(this, DisplayScrollableTextActivity.class);
 		startActivity(intent);		
