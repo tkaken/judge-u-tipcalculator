@@ -128,13 +128,11 @@
  
     </TableRow>
 
-    <TableRow
-        android:id="@+id/messageRow"
-        android:layout_marginTop="@dimen/judgement_message_top_padding" >
-
+    
+</TableLayout>
         <LinearLayout
+            android:id="@+id/messageRowLayout"
             android:layout_width="match_parent"
-            android:layout_span="4"
             android:layout_height="50dp"
             android:orientation="vertical" >
 
@@ -150,10 +148,5 @@
             android:typeface="serif" />
  
         </LinearLayout>
-        
-    </TableRow>
-
-    
-</TableLayout>
 
 </LinearLayout>

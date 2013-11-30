@@ -66,8 +66,6 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 	private EditText groupPaysAmount_ET;
 	private TextView judgementMessage_TV;
 	
-	//table rows
-	private TableRow judgementMessage_TR;
 	
 	
 	//Buttons
@@ -189,7 +187,6 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		groupPaysAmount_ET = createEditTextNoKeypad(R.id.perPersonAmountEditText);
 		
 		judgementMessage_TV = (TextView) findViewById(R.id.judgementTextView);
-		judgementMessage_TR = (TableRow) findViewById(R.id.messageRow);
 	}
 	
 	private OnTouchListener otl = new OnTouchListener()
@@ -783,7 +780,6 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		judgementMessage_TV.setText(judgement.getText());
 		judgementMessage_TV.setTextColor(judgement.getTextColor());
 		judgementMessage_TV.setBackgroundColor(judgement.getFillColor());
-		judgementMessage_TR.setBackgroundColor(judgement.getFillColor());
 	}
 
 
