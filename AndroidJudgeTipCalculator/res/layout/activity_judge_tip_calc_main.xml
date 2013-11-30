@@ -130,27 +130,29 @@
 
     <TableRow
         android:id="@+id/messageRow"
-        android:layout_marginTop="@dimen/judgement_message_top_padding"
-        android:background="@color/android_lt_blue" >
+        android:layout_marginTop="@dimen/judgement_message_top_padding" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_span="4"
+            android:layout_height="50dp"
+            android:orientation="vertical" >
 
         <TextView
             android:id="@+id/judgementTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/android_lt_blue"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_span="4"
             android:text="@string/judgement_init_text_view"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="17sp"
             android:typeface="serif" />
-
+ 
+        </LinearLayout>
+        
     </TableRow>
 
-     <TableRow
-        android:id="@+id/tipButtonRow"
-        android:paddingTop="@dimen/activity_horizontal_margin" >
-
-    </TableRow>    
-    
-    
     
 </TableLayout>
 
