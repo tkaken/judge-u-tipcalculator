@@ -130,23 +130,23 @@
 
     
 </TableLayout>
-        <LinearLayout
-            android:id="@+id/messageRowLayout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="vertical" >
+
+<LinearLayout
+        android:id="@+id/messageRowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/judgementTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/android_lt_blue"
             android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@color/android_lt_blue"
             android:text="@string/judgement_init_text_view"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="17sp"
             android:typeface="serif" />
- 
-        </LinearLayout>
-
+    </LinearLayout>
+    
 </LinearLayout>
