@@ -8,6 +8,7 @@
     android:id="@+id/mainTableLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
     android:shrinkColumns="1" >
 
     <TableRow android:id="@+id/billAmountRow" >
@@ -141,8 +142,8 @@
             android:id="@+id/judgementTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
             android:background="@color/android_lt_blue"
+            android:paddingLeft="10dp"
             android:text="@string/judgement_init_text_view"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="17sp"
