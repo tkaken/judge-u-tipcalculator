@@ -18,6 +18,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.Layout;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -89,7 +90,11 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		
 		if (checkPlayServices())
 		{
-			//all is well!
+			Log.d(this.getClass().getSimpleName(), "checkPlayServices returned true.");
+		}
+		else
+		{
+			Log.d(this.getClass().getSimpleName(), "checkPlayServices returned false.");
 		}
 	}
 
