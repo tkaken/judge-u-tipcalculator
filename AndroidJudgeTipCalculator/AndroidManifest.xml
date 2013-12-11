@@ -40,14 +40,9 @@
                 android:value="com.tkaken.androidjudgetipcalc.JudgeTipCalcMainActivity" />
         </activity>
         
-        <activity
-            android:name="com.tkaken.DisplayCrollableTextActivity"
-            android:label="@string/title_activity_display_scrollable_text"
-            android:parentActivityName="com.tkaken.androidjudgetipcalc.JudgeTipCalcMainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.tkaken.androidjudgetipcalc.JudgeTipCalcMainActivity" />
-        </activity>
+
+        <meta-data android:name="com.google.android.gms.version"
+                   android:value="@integer/google_play_services_version" />        
         
     </application>
 

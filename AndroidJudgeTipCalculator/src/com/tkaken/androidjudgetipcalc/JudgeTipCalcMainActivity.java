@@ -30,7 +30,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.tkaken.tipCalc.TipCalcState;
 import com.tkaken.tipRules.Judgement;
 import com.tkaken.tipRules.JudgementValues;
@@ -43,7 +46,9 @@ import com.tkaken.tipRules.TipJudgementRulesEngineFactory;
  */
 public class JudgeTipCalcMainActivity extends FragmentActivity
 {
-	private static final int RESULT_SETTINGS = 1;
+	private static final int RESULT_SETTINGS = 1001;
+	private static final int REQUEST_CODE_RECOVER_PLAY_SERVICES = 1002;
+	
 
 	private boolean userRequestedDataUpdate;
 
@@ -75,6 +80,46 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 	private TipCalcState tipCalcState;
 	private TipJudgementRules tipJudger;
 
+
+	
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		
+		if (checkPlayServices())
+		{
+			//all is well!
+		}
+	}
+
+	
+	private boolean checkPlayServices()
+	{
+		int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		if (status != ConnectionResult.SUCCESS)
+		{
+			if (GooglePlayServicesUtil.isUserRecoverableError(status))
+			{
+				showErrorDialog(status);
+				return false;
+			} 
+			else
+			{
+				Toast.makeText(this, "This device is not supported.", Toast.LENGTH_LONG).show();
+				finish();
+			}
+		}
+		
+		return true;
+	}
+
+	private void showErrorDialog(int code)
+	{
+		GooglePlayServicesUtil.getErrorDialog(code, this, REQUEST_CODE_RECOVER_PLAY_SERVICES).show();
+	}
+
+	@Override
 	protected void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
@@ -903,8 +948,13 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			getUserSettings();
 			break;
 
-		}
-
+	    case REQUEST_CODE_RECOVER_PLAY_SERVICES:
+		    if (resultCode == RESULT_CANCELED) 
+		    {
+		       Toast.makeText(this, "Google Play Services must be installed.", Toast.LENGTH_SHORT).show();
+		       finish();
+		    }
+		}		
 	}
 
 	private void getUserSettings()
