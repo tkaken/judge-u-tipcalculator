@@ -40,6 +40,7 @@ import com.tkaken.tipRules.Judgement;
 import com.tkaken.tipRules.JudgementValues;
 import com.tkaken.tipRules.TipJudgementRules;
 import com.tkaken.tipRules.TipJudgementRulesEngineFactory;
+import com.google.android.gms.ads.*;
 
 
 
@@ -52,7 +53,6 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 {
 	private static final int RESULT_SETTINGS = 1001;
 	private static final int REQUEST_CODE_RECOVER_PLAY_SERVICES = 1002;
-	
 
 	private boolean userRequestedDataUpdate;
 

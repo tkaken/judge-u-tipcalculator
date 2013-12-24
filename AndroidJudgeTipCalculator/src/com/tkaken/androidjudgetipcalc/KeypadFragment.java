@@ -1,5 +1,8 @@
 package com.tkaken.androidjudgetipcalc;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import android.app.Activity;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -17,6 +20,10 @@ public class KeypadFragment extends Fragment
 	
     private static final int KEY_CODE_DO_NOTHING = 5000;
 	private KeyboardView keyboardView;
+	
+	//for ads
+	private static final String GALAXY_S4_TEST_PHONE_ID = "1318D8C8CCFD241741913D62A280F81E";
+	private AdView adView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,8 +49,24 @@ public class KeypadFragment extends Fragment
 	{
 		super.onActivityCreated(savedInstanceState);
 		
-		initializeKeyboard();		
+		initializeKeyboard();	
+		
+	    // Look up the AdView as a resource and load a request.
+	    adView = (AdView) getActivity().findViewById(R.id.adView);
+	    AdRequest adRequest = new AdRequest.Builder()
+	       .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+	       .addTestDevice(GALAXY_S4_TEST_PHONE_ID)   
+	       .build();
+	    adView.loadAd(adRequest);
 
+
+	}
+	
+	@Override
+	public void onDestroy()
+	{
+		adView.destroy();
+		super.onDestroy();
 	}
 
 	private void initializeKeyboard()
