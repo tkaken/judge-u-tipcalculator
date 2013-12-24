@@ -10,6 +10,7 @@ import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,17 +50,36 @@ public class KeypadFragment extends Fragment
 	{
 		super.onActivityCreated(savedInstanceState);
 		
-		initializeKeyboard();	
-		
-	    // Look up the AdView as a resource and load a request.
+		initializeKeyboard();			
+	    initializeAd();
+
+
+	}
+
+	private void initializeAd()
+	{
+		// Look up the AdView as a resource and load a request.
 	    adView = (AdView) getActivity().findViewById(R.id.adView);
 	    AdRequest adRequest = new AdRequest.Builder()
 	       .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
 	       .addTestDevice(GALAXY_S4_TEST_PHONE_ID)   
 	       .build();
 	    adView.loadAd(adRequest);
+	}
 
+	
+	@Override
+	public void onPause()
+	{
+		adView.pause();
+		super.onPause();
+	}
 
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		adView.resume();
 	}
 	
 	@Override
