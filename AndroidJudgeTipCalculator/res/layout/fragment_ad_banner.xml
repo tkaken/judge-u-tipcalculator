@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   android:id="@+id/mainAdlayoutContainer"
-   android:layout_width="fill_parent"
-   android:layout_height="fill_parent"
-   android:background="@color/background_holo_light"
+    android:id="@+id/mainAdlayoutContainer"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_holo_light"
+    android:orientation="vertical" >
 
- 
-   android:orientation="vertical" >
-
-    
-<!-- Container needed to keep ads at the bottom of the screen -->
-<LinearLayout
+    <!-- Container needed to keep ads at the bottom of the screen -->
+    <LinearLayout
         android:id="@+id/adViewContainerLayout"
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -19,15 +15,13 @@
         android:gravity="center|bottom"
         android:orientation="vertical" >
 
-<com.google.android.gms.ads.AdView
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/adView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    ads:adSize="BANNER"
-    ads:adUnitId="ca-app-pub-5217764158893597/6533225062"
-    android:gravity="bottom" />
-
-</LinearLayout>     
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-5217764158893597/6533225062" />
+    </LinearLayout>
 
 </LinearLayout>
