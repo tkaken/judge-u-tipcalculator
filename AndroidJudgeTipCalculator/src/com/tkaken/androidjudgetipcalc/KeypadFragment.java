@@ -12,18 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
 public class KeypadFragment extends Fragment
 {
 	
     private static final int KEY_CODE_DO_NOTHING = 5000;
 	private KeyboardView keyboardView;
-	
-	//for ads
-	private static final String GALAXY_S4_TEST_PHONE_ID = "1318D8C8CCFD241741913D62A280F81E";
-	private AdView adView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,54 +43,10 @@ public class KeypadFragment extends Fragment
 		super.onActivityCreated(savedInstanceState);
 		
 		initializeKeyboard();			
-	    initializeAd();
 
-
-	}
-
-	private void initializeAd()
-	{
-		// Look up the AdView as a resource and load a request.
-	    adView = (AdView) getActivity().findViewById(R.id.adView);
-	    AdRequest adRequest = new AdRequest.Builder()
-	       .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-	       .addTestDevice(GALAXY_S4_TEST_PHONE_ID)   
-	       .build();
-	    adView.loadAd(adRequest);
 	}
 
 	
-	@Override
-	public void onPause()
-	{
-		if (adView != null)
-		{
-			adView.pause();
-		}
-		super.onPause();
-	}
-
-	@Override
-	public void onResume()
-	{
-		super.onResume();
-
-		if (adView != null)
-		{
-			adView.resume();
-		}
-	}
-
-	@Override
-	public void onDestroy()
-	{
-		if (adView != null)
-		{
-			adView.destroy();
-		}
-		super.onDestroy();
-	}
-
 	private void initializeKeyboard()
 	{
 		Activity mainActivity = getActivity();

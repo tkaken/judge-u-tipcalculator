@@ -176,6 +176,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		setUserRequestedDataUpdate(true);
 		
 		createFragmentIfDoesNotExist(KeypadFragment.class.getName());
+		createFragmentIfDoesNotExist(AdBannerFragment.class.getName());
 	
 		
 	}
