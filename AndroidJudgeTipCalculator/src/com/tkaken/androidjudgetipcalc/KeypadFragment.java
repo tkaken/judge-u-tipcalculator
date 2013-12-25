@@ -1,8 +1,5 @@
 package com.tkaken.androidjudgetipcalc;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
 import android.app.Activity;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -10,11 +7,13 @@ import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class KeypadFragment extends Fragment
 {
@@ -71,7 +70,10 @@ public class KeypadFragment extends Fragment
 	@Override
 	public void onPause()
 	{
-		adView.pause();
+		if (adView != null)
+		{
+			adView.pause();
+		}
 		super.onPause();
 	}
 
@@ -79,13 +81,20 @@ public class KeypadFragment extends Fragment
 	public void onResume()
 	{
 		super.onResume();
-		adView.resume();
+
+		if (adView != null)
+		{
+			adView.resume();
+		}
 	}
-	
+
 	@Override
 	public void onDestroy()
 	{
-		adView.destroy();
+		if (adView != null)
+		{
+			adView.destroy();
+		}
 		super.onDestroy();
 	}
 
