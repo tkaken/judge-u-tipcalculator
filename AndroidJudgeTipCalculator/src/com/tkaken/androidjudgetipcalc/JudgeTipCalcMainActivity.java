@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.tkaken.androidUtilities.ActivityUtilities;
 import com.tkaken.tipCalc.TipCalcState;
 import com.tkaken.tipRules.Judgement;
 import com.tkaken.tipRules.JudgementValues;
@@ -100,18 +101,12 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			Log.d(this.getClass().getSimpleName(), "checkPlayServices returned false.");
 		}
 		
-		if (!isCurrentFocusEditText())
+		if (!ActivityUtilities.isCurrentFocusEditText(this))
 		{
-		setFirstFocusOnFirstField();
+		   setFirstFocusOnFirstField();
 		}
 	}
 
-	//TODO: make this utility class.  Dupe in keyboard fragment
-	private boolean isCurrentFocusEditText()
-	{
-		View currentFocus = getCurrentFocus();		
-		return (currentFocus != null && currentFocus.getClass() == EditText.class);
-	}
 	
 	private boolean checkPlayServices()
 	{

@@ -1,5 +1,8 @@
 package com.tkaken.androidjudgetipcalc;
 
+import com.tkaken.androidUtilities.ActivityUtilities;
+import com.tkaken.androidUtilities.ViewUtilities;
+
 import android.app.Activity;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -73,15 +76,15 @@ public class KeypadFragment extends Fragment
 		@Override
 		public void onKey(int primaryCode, int[] keyCodes)
 		{
-			if (!isCurrentFocusEditText()) return;
+			if (!ActivityUtilities.isCurrentFocusEditText(getActivity())) return;
 			
 			if (primaryCode == KEY_CODE_DO_NOTHING) return;
 			
-			EditText editText = (EditText) getCurrentFocus();
+			EditText editText = (EditText) getActivity().getCurrentFocus();
 			
 			if (editText.hasSelection())
 			{
-				clearEditTextSelection(editText);
+				ViewUtilities.clearEditTextSelection(editText);
 			}
 			
 			
@@ -157,24 +160,8 @@ public class KeypadFragment extends Fragment
 		
 	};
 	
-	//TODO utility class function?
-	private boolean isCurrentFocusEditText()
-	{
-		View currentFocus = getCurrentFocus();		
-		return (currentFocus != null && currentFocus.getClass() == EditText.class);
-	}
 
-	//TODO utility class function?
-	private View getCurrentFocus()
-	{
-		return getActivity().getCurrentFocus();
-	}
 
-	//TODO utility class function?
-	private void clearEditTextSelection(EditText editText)
-	{
-		editText.setSelected(false);
-		editText.setText("");
-	}
+
 
 }
