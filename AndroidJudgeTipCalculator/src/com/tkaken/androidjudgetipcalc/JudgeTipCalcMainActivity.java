@@ -99,8 +99,19 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		{
 			Log.d(this.getClass().getSimpleName(), "checkPlayServices returned false.");
 		}
+		
+		if (!isCurrentFocusEditText())
+		{
+		setFirstFocusOnFirstField();
+		}
 	}
 
+	//TODO: make this utility class.  Dupe in keyboard fragment
+	private boolean isCurrentFocusEditText()
+	{
+		View currentFocus = getCurrentFocus();		
+		return (currentFocus != null && currentFocus.getClass() == EditText.class);
+	}
 	
 	private boolean checkPlayServices()
 	{
@@ -175,9 +186,8 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		
 		setUserRequestedDataUpdate(true);
 		
-		createFragmentIfDoesNotExist(KeypadFragment.class.getName());
+		createFragmentIfDoesNotExist(KeypadFragment.class.getName());	
 		createFragmentIfDoesNotExist(AdBannerFragment.class.getName());
-	
 		
 	}
 
