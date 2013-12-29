@@ -2,7 +2,7 @@ package com.tkaken.androidjudgetipcalc;
 
 import java.util.Arrays;
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,7 +32,6 @@ import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.tkaken.androidUtilities.ActivityUtilities;
@@ -56,6 +55,8 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 	private static final int REQUEST_CODE_RECOVER_PLAY_SERVICES = 1002;
 
 	private boolean userRequestedDataUpdate;
+	private boolean isDestroyed = false; 
+
 
 	// look up keys for activity's persistent data
 	private static String BILL_AMOUNT_KEY = "BILL_AMOUNT";
@@ -449,6 +450,18 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		}
 	};	
 	
+
+	private void handleEditTextFocusChange(View v)
+	{
+		if (!platformIndependentIsDestroyed())
+		{
+		   attachKeyboard((EditText) v);
+		}
+	}
+
+	
+	
+	
 	private TextWatcher billAmountListener = new TextWatcher()
 	{
 
@@ -508,8 +521,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			}
 			else
 			{
-                //TODO consider refactor, since this is the same for all EditText instances
-				attachKeyboard((EditText) v);
+                handleEditTextFocusChange(v);
 			}
 		}
 
@@ -573,7 +585,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			}
 			else
 			{
-				attachKeyboard((EditText) v);
+                handleEditTextFocusChange(v);
 			}
 		}
 	}; 
@@ -636,7 +648,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			}
 			else
 			{
-				attachKeyboard((EditText) v);
+                handleEditTextFocusChange(v);
 			}
 		}
 	}; 
@@ -699,7 +711,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			}
 			else
 			{
-				attachKeyboard((EditText) v);
+                handleEditTextFocusChange(v);
 			}
 		}
 	}; 
@@ -756,7 +768,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			}
 			else
 			{
-				attachKeyboard((EditText)v);				
+                handleEditTextFocusChange(v);
 			}
 		}
 	}; 
@@ -817,13 +829,10 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 			}
 			else
 			{
-				attachKeyboard((EditText) v);
+                handleEditTextFocusChange(v);
 			}
 		}
-	}; 
-	
-	
-	
+	};
 	
 	private void setUserRequestedDataUpdate(boolean isUserRequest)
 	{
@@ -1016,5 +1025,18 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		
 		setUserRequestedDataUpdate(true);
 		
+	}
+	
+	@Override
+	protected void onDestroy()
+	{
+		isDestroyed = true;
+		super.onDestroy();
+	}
+	
+    //android's isDestroyed is not available pre API 17
+	private boolean platformIndependentIsDestroyed()
+	{
+		return isDestroyed;
 	}
 }
