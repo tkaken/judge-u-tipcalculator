@@ -1,5 +1,6 @@
 package com.tkaken.androidjudgetipcalc;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,7 +14,6 @@ public class AdBannerFragment extends Fragment
 {
 	
 	//for ads
-	private static final String GALAXY_S4_TEST_PHONE_ID = "1318D8C8CCFD241741913D62A280F81E";
 	private AdView adView;
 	
 	@Override
@@ -46,11 +46,12 @@ public class AdBannerFragment extends Fragment
 
 	private void initializeAd()
 	{
+		
 		// Look up the AdView as a resource and load a request.
 	    adView = (AdView) getActivity().findViewById(R.id.adView);
 	    AdRequest adRequest = new AdRequest.Builder()
 	       .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-	       .addTestDevice(GALAXY_S4_TEST_PHONE_ID)   
+	       .addTestDevice(getResources().getString(R.string.MY_PHONE_ID))   
 	       .build();
 	    adView.loadAd(adRequest);
 	}

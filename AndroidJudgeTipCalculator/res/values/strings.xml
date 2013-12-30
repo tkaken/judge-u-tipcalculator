@@ -80,7 +80,9 @@
         Here\'s the next line!
     </string>
 
-    
+    <!-- For ads-->
+    <string name="MY_PHONE_ID">1318D8C8CCFD241741913D62A280F81E</string>
+    <string name="BANNER_BOTTOM_AD_UNIT">ca-app-pub-4002307937756167/2908482737</string>
     
 
 </resources>
