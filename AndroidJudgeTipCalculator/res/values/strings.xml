@@ -2,6 +2,8 @@
 <resources>
 
     <string name="app_name">Judge U Tips</string>
+    <string name="app_version">Judge U Tips 1.0</string>
+    
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
     <string name="tip_hist_title">History of tipping</string>

@@ -10,4 +10,9 @@
         android:summary="@string/pref_default_tip_summary"
         android:defaultValue="@string/pref_default_tip_value" />
     
+    <Preference
+        android:key="app_version"
+        android:title="Application version"
+        android:summary="@string/app_version" />
+    
 </PreferenceScreen>
