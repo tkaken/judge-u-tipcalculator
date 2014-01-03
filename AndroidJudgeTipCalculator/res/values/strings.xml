@@ -72,14 +72,32 @@
     
     <string name="title_activity_display_scrollable_text">A Brief History of Tipping</string>
     <string name="tip_history_text">
-        Tipping history text goes here.  I am going to do some typing now, just to see how this shows up on the screen  Will it wrap?
-        What if I go to the next line?  How will that show up?
-        \n\n
-        How about a new paragraph?  This should interesting to see how all that goes, yes?
-        \n\n
-        Now let\'s try a scroll.  That sounds fun, yes?
-        \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
-        Here\'s the next line!
+    The act of tipping has a long and fascinating history.  But how far back does tipping go?  The answer may surprise you.
+    \n\n
+    The Lascaux cave paintings discovered near Montignac, France in 1940 include some of the oldest paintings created by man.  These
+    include a 17000 year old sequence of images that depict a young hunter telling a waiter that he was given poached hyena instead of the mastodon steak he 
+    had ordered.  The waiter is shown to scoff at this, stating that the hunter could not have ordered the mastodon 
+    steak, because the mastodon had been extinct long before the order was placed.  The hunter leaves in a tizzy, 
+    leaving the waiter a small note.   
+    \n\n
+    In 1948, Professor Sans Forskin from the University of Munich translated this note and found that it said 
+    (in rough translation) “Your tip is up the mastodon’s extinct ass.”
+    \n\n 
+    While this qualifies more as withholding rather than giving a prehistoric tip, it nonetheless indicates that tipping had been in 
+    existence even at this early stage of the human adventure.
+    \n\n
+    Several millennia later, explorer Jean Calcetta while searching for a contact lens in a mound of dirt in his backyard unearthed what he thought was the Rosetta 
+    Stone.  Sadly, the Rosetta stone had already been found about two hundred years prior and was on display at the British Museum.
+    \n\n
+    Though Calcetta was subsequently placed in an institution after impersonating a pudding on an intercontinental flight, his discovery was 
+    still significant:  he had unearthed a page ripped out of what appeared to be a published tipping guide.  
+    \n\n
+    This artifact contained information 
+    many people consider useful even to this day, including what % of a bill is appropriate to give to a waiter who smiles nicely, or 
+    how much to give to a cabbie who’s driving does not cause spontaneous fecal ejection. 
+    \n\n
+    Since Calcetta\'s time, tipping has become a universal way to show appreciation to overworked, underpaid, yet kind waiters and waitresses or to act 
+    like a total dick.
     </string>
 
     <!-- For ads-->
