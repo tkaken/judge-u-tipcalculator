@@ -4,9 +4,11 @@
     <string name="app_name">Judge U Tips</string>
     <string name="app_version">Judge U Tips 1.0</string>
     
+     <!-- For menu-->
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
-    <string name="tip_hist_title">History of tipping</string>
+    <string name="tip_hist_title">A brief history of tipping</string>
+    
     <string name="bill_amount_text_view"><b>Bill Amount</b></string>
     <string name="tip_percent_text_view"><b>Tip Percent (%)</b></string>
     <string name="tip_percent_hint_text">Be nice</string>
@@ -74,27 +76,29 @@
     <string name="tip_history_text">
     The act of tipping has a long and fascinating history.  But how far back does tipping go?  The answer may surprise you.
     \n\n
-    The Lascaux cave paintings discovered near Montignac, France in 1940 include some of the oldest paintings created by man.  These
-    include a 17000 year old sequence of images that depict a young hunter telling a waiter that he was given poached hyena instead of the mastodon steak he 
+    The Lascaux cave art site discovered near Montignac, France in 1940 contains some of the oldest works of art created by man.  These 17000 year old
+    illustrations drawn with charcoal, ochre and other natural pigments 
+    include an image sequence depicting a young hunter telling a waiter that he was given poached hyena instead of the mastodon steak he 
     had ordered.  The waiter is shown to scoff at this, stating that the hunter could not have ordered the mastodon 
-    steak, because the mastodon had been extinct long before the order was placed.  The hunter leaves in a tizzy, 
-    leaving the waiter a small note.   
+    steak, because the mastodon had become extinct long before the order was placed.  The hunter leaves in a tizzy, 
+    leaving the waiter what appears to be a small note.   
     \n\n
     In 1948, Professor Sans Forskin from the University of Munich translated this note and found that it said 
     (in rough translation) “Your tip is up the mastodon’s extinct ass.”
     \n\n 
-    While this qualifies more as withholding rather than giving a prehistoric tip, it nonetheless indicates that tipping had been in 
+    While this qualifies more as withholding rather than giving a tip, it nonetheless indicates that tipping had been in 
     existence even at this early stage of the human adventure.
     \n\n
-    Several millennia later, explorer Jean Calcetta while searching for a contact lens in a mound of dirt in his backyard unearthed what he thought was the Rosetta 
-    Stone.  Sadly, the Rosetta stone had already been found about two hundred years prior and was on display at the British Museum.
+    Several millennia after these seminal paintings were drawn, explorer Jean Calcetta, while searching for a lost contact lens in a mound of dirt in his backyard,
+     unearthed what he thought was the Rosetta 
+    Stone.  Sadly, the Rosetta Stone had already been discovered about two hundred years prior and was on display at the British Museum.
     \n\n
     Though Calcetta was subsequently placed in an institution after impersonating a pudding on an intercontinental flight, his discovery was 
     still significant:  he had unearthed a page ripped out of what appeared to be a published tipping guide.  
     \n\n
     This artifact contained information 
     many people consider useful even to this day, including what % of a bill is appropriate to give to a waiter who smiles nicely, or 
-    how much to give to a cabbie who’s driving does not cause spontaneous fecal ejection. 
+    how much to give a cabbie who’s driving does not cause spontaneous fecal ejection. 
     \n\n
     Since Calcetta\'s time, tipping has become a universal way to show appreciation to overworked, underpaid, yet kind waiters and waitresses or to act 
     like a total dick.
