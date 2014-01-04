@@ -2,7 +2,7 @@ package com.tkaken.androidjudgetipcalc;
 
 import java.util.Arrays;
 import java.util.List;
-import android.annotation.SuppressLint;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,9 +29,9 @@ import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.tkaken.androidUtilities.ActivityUtilities;
@@ -40,7 +40,6 @@ import com.tkaken.tipRules.Judgement;
 import com.tkaken.tipRules.JudgementValues;
 import com.tkaken.tipRules.TipJudgementRules;
 import com.tkaken.tipRules.TipJudgementRulesEngineFactory;
-import com.google.android.gms.ads.*;
 
 
 
@@ -65,7 +64,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 	private static String TOTAL_AMOUNT_KEY = "TOTAL_AMOUNT";
 	private static String NUM_OF_GROUPS_KEY = "NUMBER_OF_GROUPS";
 	private static String GROUP_PAYS_KEY = "GROUP_PAYS";
-	private static String JUDGEMENT_MSG_KEY = "JUDGEMENT_MSG";
+	//private static String JUDGEMENT_MSG_KEY = "JUDGEMENT_MSG";
 
 
 	// hold text data for data entry fields
