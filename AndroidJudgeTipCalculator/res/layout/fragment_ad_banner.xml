@@ -3,7 +3,6 @@
     android:id="@+id/mainAdlayoutContainer"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_holo_light"
     android:orientation="vertical" >
 
     <!-- Container needed to keep ads at the bottom of the screen -->
