@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="IconDuplicatesConfig">
+        <ignore path="res/drawable/ic_1_navigation_refresh.png" />
+        <ignore path="res/drawable/ic_2_action_settings.png" />
+        <ignore path="res/drawable/ic_5_content_backspace.png" />
+        <ignore path="res/drawable/judge_u_launcher.png" />
+        <ignore path="res/drawable/thumb_down_1.png" />
+        <ignore path="res/drawable/thumb_down_2.png" />
+        <ignore path="res/drawable/thumb_up_1.png" />
+        <ignore path="res/drawable/thumb_up_2.png" />
+    </issue>
     <issue id="ManifestOrder">
         <ignore path="AndroidManifest.xml" />
     </issue>
