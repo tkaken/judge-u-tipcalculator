@@ -17,7 +17,6 @@
     <string name="group_number_text_view"><b>No. of Groups</b></string>
     <string name="group_pays_text_view"><b>Each Group Pays</b></string>
     <string name="judgement_init_text_view">Time to tip!</string>
-    <string name="tip_adjust_text_view"><b>Tip adjustment:</b></string>
 
     <string-array name="cheap_judgements">
         <item>Get over yourself, and give up a few bucks!</item>
