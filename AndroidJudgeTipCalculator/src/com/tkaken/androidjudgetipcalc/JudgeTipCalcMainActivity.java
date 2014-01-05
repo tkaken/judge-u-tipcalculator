@@ -267,7 +267,9 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 										
 					setInsertionPoint(event, editText);
 					break;
+					
 				}
+				
 			} 
 			
 			else
@@ -976,6 +978,8 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		       Toast.makeText(this, "Google Play Services must be installed.", Toast.LENGTH_SHORT).show();
 		       finish();
 		    }
+		default:
+			Log.e(this.getClass().getSimpleName(), "Unexpected activity result:" + requestCode);
 		}		
 	}
 
@@ -998,8 +1002,7 @@ public class JudgeTipCalcMainActivity extends FragmentActivity
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         //TODO Use constants
-		//TODO Pick better icon for settings
-		int defaultTipPercentAsInt = Integer.valueOf(sharedPrefs.getString("pref_default_tip", "15"));
+		int defaultTipPercentAsInt = Integer.parseInt(sharedPrefs.getString("pref_default_tip", "15"));
 		return defaultTipPercentAsInt * .01;
 	}   
 	
