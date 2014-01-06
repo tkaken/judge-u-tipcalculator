@@ -3,8 +3,5 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="text_view_rectangle_padding_left_right">11dp</dimen>
-    <dimen name="text_view_rectangle_padding_top_bottom">3dp</dimen>
-    <dimen name="judgement_message_top_padding">20dp</dimen>
     
 </resources>

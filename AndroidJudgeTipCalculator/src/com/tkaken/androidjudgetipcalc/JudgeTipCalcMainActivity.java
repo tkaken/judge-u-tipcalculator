@@ -3,33 +3,59 @@ package com.tkaken.androidjudgetipcalc;
 import java.util.Arrays;
 import java.util.List;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
+import android.text.InputType;
+import android.text.Layout;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.tkaken.androidUtilities.ActivityUtilities;
 import com.tkaken.tipCalc.TipCalcState;
 import com.tkaken.tipRules.Judgement;
 import com.tkaken.tipRules.JudgementValues;
 import com.tkaken.tipRules.TipJudgementRules;
 import com.tkaken.tipRules.TipJudgementRulesEngineFactory;
 
+
+
+
 /**
  * @author Ken
  *
  */
-public class JudgeTipCalcMainActivity extends Activity
+public class JudgeTipCalcMainActivity extends FragmentActivity
 {
+	private static final int RESULT_SETTINGS = 1001;
+	private static final int REQUEST_CODE_RECOVER_PLAY_SERVICES = 1002;
+
 	private boolean userRequestedDataUpdate;
+	private boolean isDestroyed = false; 
+
 
 	// look up keys for activity's persistent data
 	private static String BILL_AMOUNT_KEY = "BILL_AMOUNT";
@@ -38,9 +64,8 @@ public class JudgeTipCalcMainActivity extends Activity
 	private static String TOTAL_AMOUNT_KEY = "TOTAL_AMOUNT";
 	private static String NUM_OF_GROUPS_KEY = "NUMBER_OF_GROUPS";
 	private static String GROUP_PAYS_KEY = "GROUP_PAYS";
-	private static String JUDGEMENT_MSG_KEY = "JUDGEMENT_MSG";
+	//private static String JUDGEMENT_MSG_KEY = "JUDGEMENT_MSG";
 
-	
 
 	// hold text data for data entry fields
 	private EditText billAmount_ET;
@@ -51,8 +76,6 @@ public class JudgeTipCalcMainActivity extends Activity
 	private EditText groupPaysAmount_ET;
 	private TextView judgementMessage_TV;
 	
-	//table rows
-	private TableRow judgementMessage_TR;
 	
 	
 	//Buttons
@@ -62,6 +85,55 @@ public class JudgeTipCalcMainActivity extends Activity
 	private TipCalcState tipCalcState;
 	private TipJudgementRules tipJudger;
 
+
+	
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		
+		if (checkPlayServices())
+		{
+			Log.d(this.getClass().getSimpleName(), "checkPlayServices returned true.");
+		}
+		else
+		{
+			Log.d(this.getClass().getSimpleName(), "checkPlayServices returned false.");
+		}
+		
+		if (!ActivityUtilities.isCurrentFocusEditText(this))
+		{
+		   setFirstFocusOnFirstField();
+		}
+	}
+
+	
+	private boolean checkPlayServices()
+	{
+		int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		if (status != ConnectionResult.SUCCESS)
+		{
+			if (GooglePlayServicesUtil.isUserRecoverableError(status))
+			{
+				showErrorDialog(status);
+				return false;
+			} 
+			else
+			{
+				Toast.makeText(this, "This device is not supported.", Toast.LENGTH_LONG).show();
+				finish();
+			}
+		}
+		
+		return true;
+	}
+
+	private void showErrorDialog(int code)
+	{
+		GooglePlayServicesUtil.getErrorDialog(code, this, REQUEST_CODE_RECOVER_PLAY_SERVICES).show();
+	}
+
+	@Override
 	protected void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
@@ -85,6 +157,7 @@ public class JudgeTipCalcMainActivity extends Activity
 		this.tipJudger = getTipJudgementRules();
 		
 		this.tipCalcState = new TipCalcState();
+		setCalcToDefaultTip();
 		
 	    initScreenFields();
 		
@@ -108,6 +181,50 @@ public class JudgeTipCalcMainActivity extends Activity
 		
 		setUserRequestedDataUpdate(true);
 		
+		createFragmentIfDoesNotExist(KeypadFragment.class.getName());	
+		createFragmentIfDoesNotExist(AdBannerFragment.class.getName());
+		
+	}
+
+
+	//TODO consider doing an extract class for a fragment utility
+	private void createFragmentIfDoesNotExist(String fragmentClassName)
+	{
+		FragmentManager fragManager = getSupportFragmentManager();
+		
+		Fragment theFragment = fragManager.findFragmentByTag(fragmentClassName);
+		
+		if (null == theFragment)
+		{
+						
+			theFragment = createFragment(fragmentClassName);
+			
+			fragManager.beginTransaction()
+				.add(R.id.layoutContainer, theFragment, fragmentClassName)
+				.commit();
+			
+		}
+	}
+
+
+	private Fragment createFragment(String fragmentClassName)
+	{
+		Fragment theFragment = null;
+		
+		try
+		{
+			theFragment = (Fragment) Class.forName(fragmentClassName).newInstance();
+		} catch (InstantiationException e)
+		{
+			e.printStackTrace();
+		} catch (IllegalAccessException e)
+		{
+			e.printStackTrace();
+		} catch (ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		return theFragment;
 	}
 
 
@@ -120,16 +237,124 @@ public class JudgeTipCalcMainActivity extends Activity
 
 	private void initScreenFields()
 	{
-		billAmount_ET = (EditText) findViewById(R.id.billAmountEditText);		
-		tipPercent_ET = (EditText) findViewById(R.id.tipPercenttEditText);		
-		tipAmount_ET = (EditText) findViewById(R.id.tipAmountEditText);
-		totalAmount_ET = (EditText) findViewById(R.id.totalAmountEditText);		
-		numberOfGroups_ET = (EditText) findViewById(R.id.numPeopleEditText);		
-		groupPaysAmount_ET = (EditText) findViewById(R.id.perPersonAmountEditText);
+
+		billAmount_ET = createEditTextNoKeypad(R.id.billAmountEditText);
+		tipPercent_ET = createEditTextNoKeypad(R.id.tipPercenttEditText);		
+		tipAmount_ET = createEditTextNoKeypad(R.id.tipAmountEditText);
+		totalAmount_ET = createEditTextNoKeypad(R.id.totalAmountEditText);
+		numberOfGroups_ET = createEditTextNoKeypad(R.id.numPeopleEditText);	
+		groupPaysAmount_ET = createEditTextNoKeypad(R.id.perPersonAmountEditText);
+		
 		judgementMessage_TV = (TextView) findViewById(R.id.judgementTextView);
-		judgementMessage_TR = (TableRow) findViewById(R.id.messageRow);
+	}
+	
+	private OnTouchListener otl = new OnTouchListener()
+	{
+		@Override
+		public boolean onTouch(View v, MotionEvent event)
+		{
+			EditText editText = (EditText) v;
+	
+			disableDefaultKeyboard(editText);
+	
+			View focusCurrent = getWindow().getCurrentFocus();
+	
+			if (editText.equals(focusCurrent))
+			{
+				switch (event.getAction())
+				{
+				case MotionEvent.ACTION_DOWN:
+										
+					setInsertionPoint(event, editText);
+					break;
+					
+				}
+				
+			} 
+			
+			else
+			{
+				editText.requestFocus();
+			}
+	
+			return true; // consumes the onTouch event
+		}
+	
+		private void setInsertionPoint(MotionEvent touchPoint, EditText editText)
+		{
+			Layout layout = editText.getLayout();
+			float x = touchPoint.getX() + editText.getScrollX();
+			int offset = layout.getOffsetForHorizontal(0, x);
+			if (offset > 0)
+				if (x > layout.getLineMax(0))
+					editText.setSelection(offset); // touch was at end
+													// of
+													// text
+				else
+					editText.setSelection(offset - 1);
+		}
+	};
+
+	private EditText createEditTextNoKeypad(int viewId)
+	{
+		EditText editText;
+		
+		editText = (EditText) findViewById(viewId);
+		editText.setOnTouchListener(otl);
+		
+		return editText;
 	}
 
+	private void attachNumberKeyboard()
+	{
+		KeyboardView keyboardView = (KeyboardView) findViewById(R.id.keyboardview);
+		Keyboard mKeyboard = new Keyboard(this, R.xml.fun_number_keypad);		
+		keyboardView.setKeyboard( mKeyboard );
+	}
+
+
+	private void attachKeyboard(EditText editText)
+	{
+		
+	   if (isInputTypeDecimalNumber(editText))
+	   {
+		   attachDecimalNumberKeyboard();
+	   }
+	   else if (isInputTypeNumber(editText))
+	   {
+		   attachNumberKeyboard();
+	   }
+	}
+
+
+	private boolean isInputTypeNumber(EditText editText)
+	{
+		return editText.getInputType() == InputType.TYPE_CLASS_NUMBER;
+	}
+
+
+	private boolean isInputTypeDecimalNumber(EditText editText)
+	{
+		return editText.getInputType() == (InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+	}
+
+
+	private void attachDecimalNumberKeyboard()
+	{
+		KeyboardView keyboardView = (KeyboardView) findViewById(R.id.keyboardview);
+		Keyboard mKeyboard = new Keyboard(this, R.xml.fun_decimal_number_keypad);		
+		keyboardView.setKeyboard( mKeyboard );
+	}
+
+
+	/**
+	 * The first EditText field that gets focus needs to has its onFocus function call this.
+	 * Necessary since requestFocus does not use select on focus at startup.
+	 */
+	private void setUpFirstFieldsFocusState(EditText firstFocusField)
+	{
+		firstFocusField.selectAll();
+	}
 
 	private TipJudgementRules getTipJudgementRules()
 	{
@@ -226,6 +451,18 @@ public class JudgeTipCalcMainActivity extends Activity
 		}
 	};	
 	
+
+	private void handleEditTextFocusChange(View v)
+	{
+		if (!platformIndependentIsDestroyed())
+		{
+		   attachKeyboard((EditText) v);
+		}
+	}
+
+	
+	
+	
 	private TextWatcher billAmountListener = new TextWatcher()
 	{
 
@@ -239,30 +476,32 @@ public class JudgeTipCalcMainActivity extends Activity
 		public void onTextChanged(CharSequence enteredText, int start,
 				int before, int count)
 		{
-			try
+			if (isUserRequestedDataUpdate())
 			{
-				tipCalcState.setBillAmount(Double.parseDouble(enteredText.toString()));
-			} catch (NumberFormatException e)
-			{
-				tipCalcState.setBillAmount(0.0);
-			}
-			
-			setUserRequestedDataUpdate(false);
-			
-			updateTipAmountOnScreen();			
-			updateTotalAmountOnScreen();
-			updateGroupPaysAmountOnScreen();
-			
-			updateJudgementMsg();
-			
-			setUserRequestedDataUpdate(true);
+				try
+				{
+					tipCalcState.setBillAmount(Double.parseDouble(enteredText.toString()));
+				} catch (NumberFormatException e)
+				{
+					tipCalcState.setBillAmount(0.0);
+				}
 
+				setUserRequestedDataUpdate(false);
+
+				updateTipAmountOnScreen();			
+				updateTotalAmountOnScreen();
+				updateGroupPaysAmountOnScreen();
+
+				updateJudgementMsg();
+
+				setUserRequestedDataUpdate(true);
+			}
 		}
 
 		@Override
 		public void afterTextChanged(Editable s)
 		{
-			
+
 		}
 
 	};
@@ -276,26 +515,20 @@ public class JudgeTipCalcMainActivity extends Activity
 			if (!hasFocus)
 			{
 				setUpFirstFieldsFocusState(billAmount_ET);
-
+				
 				setUserRequestedDataUpdate(false);
 				updateDecimalTextView(billAmount_ET, tipCalcState.getBillAmount());
 				setUserRequestedDataUpdate(true);
+			}
+			else
+			{
+                handleEditTextFocusChange(v);
 			}
 		}
 
 	}; 
 	
-	
-	/**
-	 * The first EditText field that gets focus needs to has its onFocus function call this.
-	 * Necessary since requestFocus does not use select on focus at startup.
-	 */
-	private void setUpFirstFieldsFocusState(EditText firstFocusField)
-	{
-		firstFocusField.selectAll();
-	}
-	
-	
+
 	private TextWatcher tipPercentListener = new TextWatcher()
 	{
 
@@ -350,6 +583,10 @@ public class JudgeTipCalcMainActivity extends Activity
 				setUserRequestedDataUpdate(false);
 				updateIntTextView(tipPercent_ET, tipCalcState.getTipPercentAsInt());
 				setUserRequestedDataUpdate(true);
+			}
+			else
+			{
+                handleEditTextFocusChange(v);
 			}
 		}
 	}; 
@@ -410,6 +647,10 @@ public class JudgeTipCalcMainActivity extends Activity
 				updateDecimalTextView(tipAmount_ET, tipCalcState.getTipAmount());
 				setUserRequestedDataUpdate(true);
 			}
+			else
+			{
+                handleEditTextFocusChange(v);
+			}
 		}
 	}; 
 	
@@ -469,6 +710,10 @@ public class JudgeTipCalcMainActivity extends Activity
 				updateDecimalTextView(totalAmount_ET, tipCalcState.getTotalAmount());
 				setUserRequestedDataUpdate(true);
 			}
+			else
+			{
+                handleEditTextFocusChange(v);
+			}
 		}
 	}; 
 	
@@ -517,9 +762,14 @@ public class JudgeTipCalcMainActivity extends Activity
 		{
 			if (!hasFocus)
 			{
+				attachNumberKeyboard();
 				setUserRequestedDataUpdate(false);
 				updateIntTextView(numberOfGroups_ET, tipCalcState.getNumOfGroups());
 				setUserRequestedDataUpdate(true);
+			}
+			else
+			{
+                handleEditTextFocusChange(v);
 			}
 		}
 	}; 
@@ -578,11 +828,12 @@ public class JudgeTipCalcMainActivity extends Activity
 				updateDecimalTextView(groupPaysAmount_ET, tipCalcState.getGroupPaysAmount());
 				setUserRequestedDataUpdate(true);
 			}
+			else
+			{
+                handleEditTextFocusChange(v);
+			}
 		}
-	}; 
-	
-	
-	
+	};
 	
 	private void setUserRequestedDataUpdate(boolean isUserRequest)
 	{
@@ -598,7 +849,6 @@ public class JudgeTipCalcMainActivity extends Activity
 		judgementMessage_TV.setText(judgement.getText());
 		judgementMessage_TV.setTextColor(judgement.getTextColor());
 		judgementMessage_TV.setBackgroundColor(judgement.getFillColor());
-		judgementMessage_TR.setBackgroundColor(judgement.getFillColor());
 	}
 
 
@@ -653,6 +903,12 @@ public class JudgeTipCalcMainActivity extends Activity
 
 
 
+	private void disableDefaultKeyboard(EditText editText)
+	{
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -661,4 +917,128 @@ public class JudgeTipCalcMainActivity extends Activity
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle presses on the action bar items
+		switch (item.getItemId())
+		{
+		case R.id.action_refresh:
+			performRefreshAction();
+			return true;
+
+		case R.id.tipping_history:
+			performTippingHistoryAction();
+			return true;
+
+		case R.id.action_settings:
+			performSettingsAction();
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+
+	private void performRefreshAction()
+	{
+		tipCalcState.initializeState();
+		updateAllScreenFields();
+		setFirstFocusOnFirstField();
+	}
+
+
+	private void performSettingsAction()
+	{
+		Intent settingsIntent = new Intent(this, UserSettingsActivity.class);
+		startActivityForResult(settingsIntent, RESULT_SETTINGS);
+	}
+
+	private void performTippingHistoryAction()
+	{
+		Intent intent = new Intent(this, DisplayScrollableTextActivity.class);
+		startActivity(intent);		
+	}
+
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+
+		switch (requestCode)
+		{
+		case RESULT_SETTINGS:
+			getUserSettings();
+			break;
+
+	    case REQUEST_CODE_RECOVER_PLAY_SERVICES:
+		    if (resultCode == RESULT_CANCELED) 
+		    {
+		       Toast.makeText(this, "Google Play Services must be installed.", Toast.LENGTH_SHORT).show();
+		       finish();
+		    }
+		default:
+			Log.e(this.getClass().getSimpleName(), "Unexpected activity result:" + requestCode);
+		}		
+	}
+
+	private void getUserSettings()
+	{
+		setCalcToDefaultTip();
+        updateAllScreenFields();
+	}
+
+
+	private void setCalcToDefaultTip()
+	{
+		double defaultTipPercent = getDefaultTip();
+		tipCalcState.setDefaultTipPercent(defaultTipPercent);
+	}
+
+
+	private double getDefaultTip()
+	{
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //TODO Use constants
+		int defaultTipPercentAsInt = Integer.parseInt(sharedPrefs.getString("pref_default_tip", "15"));
+		return defaultTipPercentAsInt * .01;
+	}   
+	
+	private void setFirstFocusOnFirstField()
+	{
+		billAmount_ET.requestFocus();
+		setUpFirstFieldsFocusState(billAmount_ET);
+	}
+
+
+	private void updateAllScreenFields()
+	{
+		setUserRequestedDataUpdate(false);
+		updateBillAmountOnScreen();
+		updateTipPercentOnScreen();			
+		updateTipAmountOnScreen();			
+		updateTotalAmountOnScreen();
+		updateNumGroupsOnScreen();
+		updateGroupPaysAmountOnScreen();
+		
+		updateJudgementMsg();
+		
+		setUserRequestedDataUpdate(true);
+		
+	}
+	
+	@Override
+	protected void onDestroy()
+	{
+		isDestroyed = true;
+		super.onDestroy();
+	}
+	
+    //android's isDestroyed is not available pre API 17
+	private boolean platformIndependentIsDestroyed()
+	{
+		return isDestroyed;
+	}
 }

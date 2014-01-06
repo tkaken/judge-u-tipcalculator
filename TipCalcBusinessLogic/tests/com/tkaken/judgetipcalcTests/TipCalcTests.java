@@ -19,6 +19,7 @@ public class TipCalcTests
 	private TipCalcState tipCalcStartsBill20Groups2;
 	private TipCalcState tipCalcStartsGroups2;
 	private TipCalcState tipCalcStartsGroups3;
+	private TipCalcState tipCalcStartsWithAllValuesSet;
 	private static final double DOUBLE_DELTA = 0.01;
 
     @Before
@@ -35,6 +36,12 @@ public class TipCalcTests
 		this.tipCalcStartsBill20Groups2 = new TipCalcState();
 		this.tipCalcStartsBill20Groups2.setBillAmount(20);
 		this.tipCalcStartsBill20Groups2.setNumOfGroups(2);
+		
+		this.tipCalcStartsWithAllValuesSet = new TipCalcState();
+		this.tipCalcStartsWithAllValuesSet.setBillAmount(20.20);
+		this.tipCalcStartsWithAllValuesSet.setTipPercent(.5);
+		this.tipCalcStartsWithAllValuesSet.setNumOfGroups(10);
+		
 
 	}
 
@@ -221,6 +228,20 @@ public class TipCalcTests
 
 		//act
 		this.tipCalcStartsAllClear.setTipPercent(MAX_TIP_PERCENT);
+		
+		//check postconditions
+		assertEquals(expectedTipPercent, this.tipCalcStartsAllClear.getTipPercent(),DOUBLE_DELTA);
+	}
+
+	
+	@Test
+	public void setDefaultTipPercent()
+	{
+		//set preconditions
+		double expectedTipPercent = .40;
+
+		//act
+		this.tipCalcStartsAllClear.setDefaultTipPercent(expectedTipPercent);
 		
 		//check postconditions
 		assertEquals(expectedTipPercent, this.tipCalcStartsAllClear.getTipPercent(),DOUBLE_DELTA);
@@ -966,5 +987,15 @@ public class TipCalcTests
 		assertEquals(expectedEachGroupPays, this.tipCalcStartsAllClear.getGroupPaysAmount(),DOUBLE_DELTA);		
 	}
 	
-
+    @Test
+    public void resetTipCalc()
+    {
+    	//act
+    	this.tipCalcStartsWithAllValuesSet.initializeState();
+    	
+    	//check postconditions
+		assertEquals(0.0, this.tipCalcStartsWithAllValuesSet.getBillAmount(),DOUBLE_DELTA);
+		assertEquals(15, this.tipCalcStartsWithAllValuesSet.getTipPercentAsInt());
+		assertEquals(1, this.tipCalcStartsWithAllValuesSet.getNumOfGroups());
+    }
 }

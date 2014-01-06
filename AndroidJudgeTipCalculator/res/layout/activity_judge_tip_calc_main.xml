@@ -1,7 +1,14 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/TableLayout1"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:id="@+id/layoutContainer"
+   android:layout_width="fill_parent"
+   android:layout_height="fill_parent"
+   android:orientation="vertical" >
+
+<TableLayout
+    android:id="@+id/mainTableLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
     android:shrinkColumns="1" >
 
     <TableRow android:id="@+id/billAmountRow" >
@@ -95,12 +102,12 @@
             android:id="@+id/numPeopleTextView"
             android:text="@string/group_number_text_view" />
 
-        <EditText
+        <EditText 
             android:id="@+id/numPeopleEditText"
             android:ems="5"
-            android:maxLength="2"
-            android:selectAllOnFocus="true"
-            android:inputType="number" >
+            android:maxLength="2"             
+            android:inputType="number"
+            android:selectAllOnFocus="true">
 
 
         </EditText>
@@ -122,28 +129,28 @@
  
     </TableRow>
 
-    <TableRow
-        android:id="@+id/messageRow"
-        android:layout_marginTop="@dimen/judgement_message_top_padding"
-        android:background="@color/android_lt_blue" >
+    
+</TableLayout>
+
+<!-- Layout needed to allow msg textview to expand and shrink between one and two lines -->
+<LinearLayout
+        android:id="@+id/messageRowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/judgementTextView"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_span="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/android_lt_blue"
+            android:paddingLeft="10dp"
             android:text="@string/judgement_init_text_view"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="17sp"
             android:typeface="serif" />
+</LinearLayout>
 
-    </TableRow>
+   
 
-     <TableRow
-        android:id="@+id/tipButtonRow"
-        android:paddingTop="@dimen/activity_horizontal_margin" >
-
-    </TableRow>    
-    
-    
-    
-</TableLayout>
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">Judge U Tips</string>
+    <string name="app_version">Judge U Tips 1.0</string>
+    
+    <!-- For ads-->
+    <string name="MY_PHONE_ID">1318D8C8CCFD241741913D62A280F81E</string>
+    <string name="BANNER_BOTTOM_AD_UNIT">ca-app-pub-4002307937756167/2908482737</string>
+    
+    
+</resources>

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">Judge U Tips</string>
+    
+     <!-- For menu-->
     <string name="action_settings">Settings</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="tip_hist_title">A brief history of tipping</string>
+    
     <string name="bill_amount_text_view"><b>Bill Amount</b></string>
     <string name="tip_percent_text_view"><b>Tip Percent (%)</b></string>
     <string name="tip_percent_hint_text">Be nice</string>
@@ -11,11 +14,8 @@
     <string name="group_number_text_view"><b>No. of Groups</b></string>
     <string name="group_pays_text_view"><b>Each Group Pays</b></string>
     <string name="judgement_init_text_view">Time to tip!</string>
-    <string name="tip_adjust_text_view"><b>Tip adjustment:</b></string>
-    <string name="reset_btn_text">Reset</string>
 
-    <string-array
-        name="cheap_judgements">
+    <string-array name="cheap_judgements">
         <item>Get over yourself, and give up a few bucks!</item>
         <item>You make your mother ashamed!</item>
         <item>Not nice.</item>
@@ -34,22 +34,18 @@
         <item>May God\'s hair find its way into your soup!</item>
         <item>Really?</item>
         <item>You just reserved a seat in the Hades diner!</item>
-        <item>Hit the green button you prick.</item>       
-        <item>You are a cheap bastard!</item>       
-    </string-array>        
-    
-    <string-array
-        name="normal_judgements">
+        <item>Hit the green button you prick.</item>
+        <item>You are a cheap bastard!</item>
+    </string-array>
+    <string-array name="normal_judgements">
         <item>Okay, but you can do better!</item>
         <item>Inch it forward, just a bit!</item>
         <item>Heed the Siren song of the green button!</item>
         <item>Spread a little love for a few bucks more. :)</item>
         <item>Make your mother proud!  Press the green button!</item>
         <item>Give up the buck, get the big smile!</item>
-    </string-array>    
-
-    <string-array
-        name="saint_judgements">
+    </string-array>
+    <string-array name="saint_judgements">
         <item>You are a saint!</item>
         <item>I\'m honored to sit in your pocket.</item>
         <item>You made your mother proud.</item>
@@ -62,14 +58,47 @@
         <item>Well played!</item>
         <item>You have earned 6 awesome points!</item>
         <item>A nice way to end a nice meal.</item>
-        <item>42</item>
+        <item>42.</item>
         <item>I love you!</item>
         <item>May all your stools be soft and satisfying!</item>
-    </string-array>    
+    </string-array>
 
-
+    <string name="pref_default_tip_title">Default tip percentage</string>
+    <string name="pref_default_tip_summary">Set the default tip percentage</string>
+    <string name="pref_default_tip_value">15</string>
     
+    
+    <string name="title_activity_display_scrollable_text">A Brief History of Tipping</string>
+    <string name="tip_history_text">
+    The act of tipping has a long and fascinating history.  But how far back does tipping go?  The answer may surprise you.
+    \n\n
+    The Lascaux cave art site discovered near Montignac, France in 1940 contains some of the oldest works of art created by man.  These 17000 year old
+    illustrations drawn with charcoal, ochre and other natural pigments 
+    include an image sequence depicting a young hunter telling a waiter that he was given poached hyena instead of the mastodon steak he 
+    had ordered.  The waiter is shown to scoff at this, stating that the hunter could not have ordered the mastodon 
+    steak, because the mastodon had become extinct long before the order was placed.  The hunter leaves in a tizzy, 
+    leaving the waiter what appears to be a small note.   
+    \n\n
+    For years, the meaning of this note remained a mystery, its complex cyphers evading the greatest linguistic minds of the time.  Then, 
+    in the winter of 1948, Professor Sans Forskin working tirelessly at the University of Munich successfully 
+    broke the code.  The note read (in rough translation) “Your tip is up the mastodon’s extinct ass.”
+    \n\n 
+    While this qualifies more as withholding rather than giving a tip, it nonetheless indicates that tipping had been in 
+    existence even at this early stage of the human adventure.
+    \n\n
+    Several millennia after these seminal paintings were created, explorer Jean Calcetta, while searching for a lost contact lens in a mound of dirt in his backyard,
+     unearthed what he thought was the Rosetta 
+    Stone.  Sadly, the Rosetta Stone had been discovered about a hundred fifty years prior and was already on display at the British Museum.
+    \n\n
+    Though Calcetta was subsequently placed in an institution after impersonating a pudding on an intercontinental flight, his discovery was 
+    still significant:  he had unearthed a page ripped out of what appeared to be a published tipping guide.  
+    \n\n
+    This artifact contained information 
+    many people consider useful even to this day, including what % of a bill is appropriate to give to a waiter who smiles nicely, or 
+    how much to give a cabbie who’s driving does not cause spontaneous fecal ejection. 
+    \n\n
+    Since Calcetta\'s time, tipping has become a universal way to show appreciation to overworked, underpaid, yet kind waiters and waitresses or to act 
+    like a total dick.
+    </string>
 
 </resources>
-
-
